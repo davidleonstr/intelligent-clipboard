@@ -1,7 +1,5 @@
-<div align="center">
-  <img src="resources/icons/app-icon.svg" alt="QFlow Icon" width="180"/>
-  <br/>
-</div>
+<img src="resources/icons/app-icon.svg" alt="QFlow Icon" width="180"/>
+<br/>
 
 # IC — Intelligent Clipboard
 

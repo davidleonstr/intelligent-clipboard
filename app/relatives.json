@@ -2,5 +2,6 @@
     "prompt-file": "app/prompt.md",
     "ic-key": "",
     "api-key-pattern": "^AIzaSy[A-Za-z0-9_-]{33}$",
-    "key-combination": "ctrl+i"
+    "key-combination": "ctrl+i",
+    "schiper": "IC-ZYNC"
 }

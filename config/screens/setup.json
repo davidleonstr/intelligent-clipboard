@@ -1,0 +1,17 @@
+{
+    "texts": {
+        "title": "WELCOME, USER!\nSET YOUR INTELLIGENT CLIP KEY",
+        "inputKeyPlaceholder": "Ej: AIzaSyB-8jL2kXnZ_m4P9qWv1tR5uS7y3x0A_Bc",
+        "confirm": "Confirm",
+        "keyIndicator": "Key: ",
+        "hello": "Welcome to Intelligent Clip",
+        "invalidKey": "Failed Verification",
+        "validKey": "Successful Verification",
+        "redirecting": "Redirecting to Home",
+        "keySetted": "IC Key Setted",
+        "appName": "INTELLIGENT CLIP"
+    },
+    "icons": {
+        "appIcon": "resources/icons/app-icon.svg"
+    }
+}

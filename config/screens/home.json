@@ -1,0 +1,18 @@
+{
+    "texts": {
+        "welcomeMessage": "Welcome to Home",
+        "homeTitle": "IC HOME",
+        "keyLabel": "IC Key: ",
+        "copyKey": "Copy Key",
+        "enableListener": "Enable Service:",
+        "selectModel": "Select Your Model:",
+        "help": "?",
+        "keyCopied": "IC Key Copied",
+        "deleteKey": "DELETE IC KEY",
+        "keyDeleted": "IC Key Deleted",
+        "changesApplied": "Changes Applied"
+    },
+    "icons": {
+        "appIcon": "resources/icons/app-icon.svg"
+    }
+}

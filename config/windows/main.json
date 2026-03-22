@@ -1,0 +1,6 @@
+{
+    "title": "Intelligent Clip",
+    "style": "main",
+    "icon-path": "resources/icons/app-icon.svg",
+    "geometry": [250, 105, 900, 500]
+}

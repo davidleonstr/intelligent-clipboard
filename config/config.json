@@ -1,0 +1,12 @@
+{
+    "app": {
+        "folders": {
+            "styles": "styles",
+            "data": "data",
+            "configs": {
+                "windows": "config/windows",
+                "screens": "config/screens"
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "prompt-file": "app/prompt.md",
+    "ic-key": "",
+    "api-key": "^AIzaSy[A-Za-z0-9_-]{33}$",
+    "key-combination": "ctrl+i"
+}

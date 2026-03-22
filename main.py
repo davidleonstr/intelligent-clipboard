@@ -72,6 +72,13 @@ class App(QFlow.App):
     
     # Update key
     def updateKey(self, key: str):
+        # Set null in JSON if not key
+        if not key:
+            # Encrypt key
+            RELATIVES.RelativesFile.update('ic-key', None) 
+
+            return # Return function
+            
         # Encrypt key
         RELATIVES.RelativesFile.update(
             'ic-key', 

@@ -10,11 +10,11 @@ SCREENCONFIG = ObjectBuilder(
     JSONFile(CONFIG.folders['configs']['screens']['setup']).read()
 ).obj
 
-from PyQt6.QtWidgets import (
+from qtpy.QtWidgets import (
     QVBoxLayout, QLabel, QLineEdit, QPushButton, QHBoxLayout, QFormLayout, QWidget
 )
-from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QPixmap
+from qtpy.QtCore import Qt, QTimer
+from qtpy.QtGui import QPixmap
 
 from app import RELATIVES
 

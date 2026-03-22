@@ -14,8 +14,8 @@ from app import RELATIVES
 APPCONFIG = JSONFile(CONFIG.folders['configs']['windows']['main']).read()
 
 import sys
-from PyQt6.QtWidgets import QApplication
-from PyQt6.QtGui import QIcon
+from qtpy.QtWidgets import QApplication
+from qtpy.QtGui import QIcon
 import os
 
 # Import HomeScreen

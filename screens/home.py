@@ -9,11 +9,11 @@ SCREENCONFIG = ObjectBuilder(
     JSONFile(CONFIG.folders['configs']['screens']['home']).read()
 ).obj
 
-from PyQt6.QtWidgets import (
+from qtpy.QtWidgets import (
     QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QComboBox, QApplication
 )
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap
+from qtpy.QtCore import Qt
+from qtpy.QtGui import QPixmap
 
 from app.controllers import GeminiController
 from app import Combinations, RELATIVES

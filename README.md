@@ -99,8 +99,3 @@ The system prompt used for AI processing is loaded from the file path specified 
 The API key is encrypted at rest using a deterministic XOR cipher seeded with a fixed application string. This prevents casual inspection of stored credentials. The key is only decrypted in memory at startup and is never written in plaintext to disk.
 
 This cipher is not cryptographically strong and is intended as obfuscation, not secure key storage. For higher-security environments, consider replacing `SeedCipher` with an OS-level keychain integration.
-
-# Screenshots
-
-![Screenshot](screenshots/snapshot-1.png)
-![Screenshot](screenshots/snapshot-2.png)

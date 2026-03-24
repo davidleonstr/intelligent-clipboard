@@ -83,6 +83,8 @@ class HomeScreen(QFlow.Screen):
         )
 
         self.copyKeyBtn = QPushButton(self.Config.texts.copyKey)
+        # Set default object name for button style
+        self.copyKeyBtn.setObjectName('normalButton')
         self.copyKeyBtn.clicked.connect(self.copyKey)
 
         self.keyLayout.addWidget(self.keyLabel)
@@ -128,6 +130,9 @@ class HomeScreen(QFlow.Screen):
         self.bottom.addStretch(1) 
         
         self.helpButton = QPushButton(self.Config.texts.help)
+
+        # Set default object name for button style
+        self.helpButton.setObjectName('normalButton')
 
         # Move to help screens
         self.helpButton.clicked.connect(

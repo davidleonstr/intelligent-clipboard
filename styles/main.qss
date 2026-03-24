@@ -15,7 +15,7 @@ QLineEdit {
     padding: 6px 10px;
     font-size: 13px;
     color: #ffffff;
-    selection-background-color: #3498db;
+    selection-background-color: #ffffff;
     selection-color: #ffffff;
 }
 
@@ -28,7 +28,7 @@ QLineEdit:hover {
 }
 
 QLineEdit:focus {
-    border-color: #3498db;
+    border-color: #5e2fca;
 }
 
 QLineEdit:disabled {
@@ -76,6 +76,11 @@ QCheckBox::indicator:checked {
     border-color: #005e9c;
 }
 
+QPushButton#normalButton {
+    background: #292929;
+    padding: 8px 12px;
+}
+
 QPushButton#confirmButton {
     background-color: #2f8cca;
     border: none;
@@ -120,7 +125,7 @@ QPushButton#resetButton:disabled {
 
 QComboBox {
     border-radius: 1px;
-    padding: 2px 5px;
+    padding: 5px 8px;
 }
 
 QComboBox QAbstractItemView {

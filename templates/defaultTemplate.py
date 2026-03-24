@@ -27,6 +27,9 @@ class DefaultTemplate(Template):
             onWindowMinimize=self.windowsMinimize,
         )
 
+        # I don't want that option
+        self.titleBar.btnMaximize.setDisabled(True) 
+
         # Main Layout
         self.mainLayout = QVBoxLayout()
 

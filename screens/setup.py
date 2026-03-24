@@ -52,7 +52,7 @@ class KeyForm(QWidget):
         self.inputKey.setEchoMode(QLineEdit.Password)
 
         self.btnConfirm = QPushButton(self.Config.texts.confirm)
-        self.btnConfirm.setObjectName('confirmButton')
+        self.btnConfirm.setObjectName('resetButton')
 
         # Execute checking
         self.btnConfirm.clicked.connect(

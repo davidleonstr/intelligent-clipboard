@@ -158,12 +158,17 @@ class SetupScreen(QFlow.Screen):
         
         if not re.match(pattern, key):
             # Show error
-            Notify(
+            self.invalidKeyNotify = Notify(
                 self.Config.texts.invalidKey, 
                 type='error', 
                 parent=self.parent(),
-                toggleProgressBar=False
-            ).show()
+                toggleProgressBar=False,
+                autoShow=False
+            )
+
+            # Set new contexts margins and show notify
+            self.invalidKeyNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
+            self.invalidKeyNotify.show()
 
             # Return if error
             return
@@ -172,24 +177,35 @@ class SetupScreen(QFlow.Screen):
         button.setDisabled(True)
         
         # Key Setted
-        Notify(
+        self.keySettedNotify = Notify(
             self.Config.texts.keySetted, 
             type='success', 
             parent=self.parent(),
-            toggleProgressBar=False
-        ).show()
+            toggleProgressBar=False,
+            autoShow=False
+        )
+
+        # Set new contexts margins and show notify
+        self.keySettedNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
+        self.keySettedNotify.show()
+
         # Show redirecting
-        Notify(
+        self.redirectingNotify = Notify(
             self.Config.texts.redirecting, 
             type='info', 
             parent=self.parent(),
-            toggleProgressBar=False
-        ).show()
+            toggleProgressBar=False,
+            autoShow=False
+        )
+
+        # Set new contexts margins and show notify
+        self.redirectingNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
+        self.redirectingNotify.show()
 
         # Update key using app method
         self.parent().updateKey(key)
 
-        # Move to the other screen
+        # Move to the other screen after notifications end
         QTimer.singleShot(
             2500, 
             lambda: self.parent().setScreen(

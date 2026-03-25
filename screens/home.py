@@ -43,12 +43,19 @@ class HomeScreen(QFlow.Screen):
         # API Key
         self.key = params.get('key')
 
-        Notify(
+        # Off autoshow to modify properties
+        self.welcomeNotifiy = Notify(
             self.Config.texts.welcomeMessage,
             type='info',
             parent=self.parent(),
-            toggleProgressBar=False
-        ).show()
+            toggleProgressBar=False,
+            autoShow=False
+        )
+        
+        # Set new contexts margins
+        self.welcomeNotifiy.containerLayout.setContentsMargins(20, 15, 20, 15)
+        # Show notifiy manually
+        self.welcomeNotifiy.show()
         
         self.screenlayout = QVBoxLayout()
         self.screenlayout.setContentsMargins(0, 0, 0, 0)
@@ -189,12 +196,17 @@ class HomeScreen(QFlow.Screen):
         clipboard = QApplication.clipboard()
         clipboard.setText(self.key)
 
-        Notify(
+        self.keyCopiedNotify = Notify(
             self.Config.texts.keyCopied,
             type='success',
             parent=self.parent(),
-            toggleProgressBar=False
-        ).show()
+            toggleProgressBar=False,
+            autoShow=False
+        )
+
+        # Set new contexts margins and show notify
+        self.keyCopiedNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
+        self.keyCopiedNotify.show()
     
     def deleteKey(self):
         self.parent().updateKey('') # Set IC key in blank
@@ -203,12 +215,17 @@ class HomeScreen(QFlow.Screen):
             'deleteKey': True
         }) # Move to setup and set flag to clear the form
 
-        Notify(
+        self.deleteKeyNotify = Notify(
             self.Config.texts.keyDeleted,
             type='success',
             parent=self.parent(),
-            toggleProgressBar=False
-        ).show()
+            toggleProgressBar=False,
+            autoShow=False
+        )
+
+        # Set new contexts margins and show notify
+        self.deleteKeyNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
+        self.deleteKeyNotify.show()
     
     def loadModels(self) -> list:
         # Get models

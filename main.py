@@ -88,7 +88,7 @@ class App(QFlow.App):
             initialScreen = self.homeScreen.name
 
         # Set screen after loading (estimated time)
-        QTimer.singleShot(4200, lambda: self.setScreen(initialScreen, args=args))
+        QTimer.singleShot(4500, lambda: self.setScreen(initialScreen, args=args))
     
     # Update key
     def updateKey(self, key: str):

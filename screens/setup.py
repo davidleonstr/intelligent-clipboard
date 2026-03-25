@@ -158,7 +158,12 @@ class SetupScreen(QFlow.Screen):
         
         if not re.match(pattern, key):
             # Show error
-            Notify(self.Config.texts.invalidKey, type='error', parent=self.parent()).show()
+            Notify(
+                self.Config.texts.invalidKey, 
+                type='error', 
+                parent=self.parent(),
+                toggleProgressBar=False
+            ).show()
 
             # Return if error
             return
@@ -167,9 +172,19 @@ class SetupScreen(QFlow.Screen):
         button.setDisabled(True)
         
         # Key Setted
-        Notify(self.Config.texts.keySetted, type='success', parent=self.parent()).show()
+        Notify(
+            self.Config.texts.keySetted, 
+            type='success', 
+            parent=self.parent(),
+            toggleProgressBar=False
+        ).show()
         # Show redirecting
-        Notify(self.Config.texts.redirecting, type='info', parent=self.parent()).show()
+        Notify(
+            self.Config.texts.redirecting, 
+            type='info', 
+            parent=self.parent(),
+            toggleProgressBar=False
+        ).show()
 
         # Update key using app method
         self.parent().updateKey(key)

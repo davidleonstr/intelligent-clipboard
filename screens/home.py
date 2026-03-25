@@ -46,7 +46,8 @@ class HomeScreen(QFlow.Screen):
         Notify(
             self.Config.texts.welcomeMessage,
             type='info',
-            parent=self.parent()
+            parent=self.parent(),
+            toggleProgressBar=False
         ).show()
         
         self.screenlayout = QVBoxLayout()
@@ -191,7 +192,8 @@ class HomeScreen(QFlow.Screen):
         Notify(
             self.Config.texts.keyCopied,
             type='success',
-            parent=self.parent()
+            parent=self.parent(),
+            toggleProgressBar=False
         ).show()
     
     def deleteKey(self):
@@ -204,7 +206,8 @@ class HomeScreen(QFlow.Screen):
         Notify(
             self.Config.texts.keyDeleted,
             type='success',
-            parent=self.parent()
+            parent=self.parent(),
+            toggleProgressBar=False
         ).show()
     
     def loadModels(self) -> list:

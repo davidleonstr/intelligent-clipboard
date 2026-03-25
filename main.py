@@ -15,11 +15,12 @@ APPCONFIG = JSONFile(CONFIG.folders['configs']['windows']['main']).read()
 
 import sys
 from qtpy.QtWidgets import QApplication
+from qtpy.QtCore import QTimer
 from qtpy.QtGui import QIcon
 import os
 
 # Import screens
-from screens import SetupScreen, HomeScreen, ErrorScreen, HelpScreen
+from screens import SetupScreen, HomeScreen, ErrorScreen, HelpScreen, LoadingScreen
 
 # Import default template
 from templates import DefaultTemplate
@@ -43,12 +44,14 @@ class App(QFlow.App):
         self.homeScreen = HomeScreen(parent=self)
         self.errorScreen = ErrorScreen(parent=self)
         self.helpScreen = HelpScreen(parent=self)
+        self.loadingScreen = LoadingScreen(parent=self)
         
         # Add screens
         self.addScreen(self.setupScreen)
         self.addScreen(self.homeScreen)
         self.addScreen(self.errorScreen)
         self.addScreen(self.helpScreen)
+        self.addScreen(self.loadingScreen)
 
         # If not have internet
         if not hasInternet():
@@ -57,6 +60,9 @@ class App(QFlow.App):
 
             # Stop here
             return 
+        
+        # Set loading screen
+        self.setScreen(self.loadingScreen.name)
 
         # Initial screen
         initialScreen = self.setupScreen.name
@@ -81,8 +87,8 @@ class App(QFlow.App):
             # Initial screen
             initialScreen = self.homeScreen.name
 
-        # Set screen
-        self.setScreen(initialScreen, args=args)
+        # Set screen after loading (estimated time)
+        QTimer.singleShot(3770, lambda: self.setScreen(initialScreen, args=args))
     
     # Update key
     def updateKey(self, key: str):

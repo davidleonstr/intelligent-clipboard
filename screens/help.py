@@ -11,6 +11,7 @@ SCREENCONFIG = ObjectBuilder(
 from qtpy.QtWidgets import (
     QVBoxLayout, QPushButton, QHBoxLayout
 )
+from qtpy.QtGui import QColor
 from qtpy.QtCore import QUrl
 from qtpy.QtWebEngineWidgets import QWebEngineView
 import os
@@ -32,6 +33,11 @@ class HelpScreen(QFlow.Screen):
 
         # Init brower
         self.browser = QWebEngineView()
+
+        # To avoid white flash
+        self.browser.setStyleSheet('background-color: #1e1e1e;')
+        self.browser.page().setBackgroundColor(QColor('#1e1e1e'))
+
         # Set screen
         path = os.path.abspath('screens/html/help-screen.html')
         self.browser.setUrl(QUrl.fromLocalFile(path))

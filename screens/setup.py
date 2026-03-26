@@ -205,7 +205,7 @@ class SetupScreen(QFlow.Screen):
         # Update key using app method
         self.parent().updateKey(key)
 
-        # Move to the other screen after notifications end
+        # Move to the other screen after notifications end (estimated time)
         QTimer.singleShot(
             2500, 
             lambda: self.parent().setScreen(

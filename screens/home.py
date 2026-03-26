@@ -15,7 +15,7 @@ from qtpy.QtWidgets import (
 from qtpy.QtCore import Qt
 from qtpy.QtGui import QPixmap
 
-from app.controllers import GeminiController
+from app.controllers import AIController
 from app import Combinations, RELATIVES
 
 import keyboard
@@ -231,7 +231,7 @@ class HomeScreen(QFlow.Screen):
     
     def loadModels(self) -> list:
         # Get models
-        models = GeminiController(self.key).getAvailableModels()
+        models = AIController(self.key).getAvailableModels()
 
         # Add models to options
         self.modelsCombo.addItems(models)

@@ -1,3 +1,3 @@
-from .geminiController import GeminiController
+from .aiController import AIController
 
-__all__ = ['GeminiController']
+__all__ = ['AIController']

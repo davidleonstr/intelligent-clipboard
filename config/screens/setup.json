@@ -8,17 +8,17 @@
             "confirmKey": "CONFIRM"
         },
         "inputs": {
-            "inputKey": "Ej: AIzaSyB-8jL2kXnZ_m4P9qWv1tR5uS7y3x0A_Bc"
+            "inputKey": "Ej: sk-9fA2bC7dE8F3gH1JkL0mN"
         },
         "notifications": {
             "invalidKey": "Failed Verification",
             "validKey": "Successful Verification",
             "redirecting": "Redirecting to Home",
-            "keySetted": "Gemini Key Setted"
+            "keySetted": "IC Key Setted"
         }  
     },
     "icons": {
         "appIcon": "resources/icons/app-icon.svg",
-        "geminiIcon": "resources/icons/gemini-icon.svg"
+        "aiIcon": "resources/icons/ai-icon.svg"
     }
 }

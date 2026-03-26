@@ -1,10 +1,11 @@
 {
     "ic-key": null,
+    "ic-openai-wrapper": "https://generativelanguage.googleapis.com/v1beta/openai/",
     "files": {
         "prompt-file": "app/prompt.md"
     },
     "auth": {
-        "ic-key-pattern": "^AIzaSy[A-Za-z0-9_-]{33}$",
+        "ic-key-pattern": "^[A-Za-z0-9-]+$",
         "s-chiper": "IC-ZYNC"
     },
     "keyboard": {

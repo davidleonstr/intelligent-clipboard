@@ -2,17 +2,17 @@
     "texts": {
         "notifications": {
             "welcome": "Welcome to Home",
-            "keyDeleted": "Gemini Key Deleted",
-            "keyCopied": "Gemini Key Copied"
+            "keyDeleted": "IC Key Deleted",
+            "keyCopied": "IC Key Copied"
         },
         "buttons": {
-            "deleteKey": "DELETE GEMINI KEY",
-            "copyKey": "Copy Gemini Key",
+            "deleteKey": "DELETE IC KEY",
+            "copyKey": "Copy IC Key",
             "help": "?"
         },
         "labels": {
             "title": "IC HOME",
-            "key": "Gemini Key: ",
+            "key": "IC Key: ",
             "selectModel": "Select Your Model:",
             "enableService": "Enable Service:",
             "symbolToHideText": "X"

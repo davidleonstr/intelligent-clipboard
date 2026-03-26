@@ -79,15 +79,15 @@ class KeyForm(QWidget):
         container.addWidget(self.title)
         container.addSpacing(10)
 
-        self.geminiLogo = QLabel()
+        self.aiLogo = QLabel()
 
-        geminiPixmap = QPixmap(self.Config.icons.geminiIcon)
-        geminiPixmap = geminiPixmap.scaled(31, 31, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        aiPixmap = QPixmap(self.Config.icons.aiIcon)
+        aiPixmap = aiPixmap.scaled(31, 31, Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
-        self.geminiLogo.setPixmap(geminiPixmap)
-        self.geminiLogo.setAlignment(Qt.AlignCenter)
+        self.aiLogo.setPixmap(aiPixmap)
+        self.aiLogo.setAlignment(Qt.AlignCenter)
 
-        formLayout.addRow(self.geminiLogo, self.inputKey)
+        formLayout.addRow(self.aiLogo, self.inputKey)
 
         container.addLayout(formLayout)
         container.addSpacing(10)

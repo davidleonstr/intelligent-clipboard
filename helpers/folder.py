@@ -20,18 +20,18 @@ class Folder:
         self.folderpath = folderpath
         self.path = Path(folderpath)
     
-    def create(self, exist_ok: bool = True) -> None:
+    def create(self, existOk: bool = True) -> None:
         '''
         Create the folder.
         
         Args:
-            exist_ok: If True, don't raise error if folder already exists
+            existOk: If True, don't raise error if folder already exists
         
         Raises:
-            FileExistsError: If folder exists and exist_ok is False
+            FileExistsError: If folder exists and existOk is False
         '''
         try:
-            os.makedirs(self.folderpath, exist_ok=exist_ok)
+            os.makedirs(self.folderpath, existOk=existOk)
         except FileExistsError:
             raise FileExistsError(f"Folder '{self.folderpath}' already exists")
     
@@ -65,7 +65,7 @@ class Folder:
         '''
         return os.path.exists(self.folderpath) and os.path.isdir(self.folderpath)
     
-    def is_empty(self) -> bool:
+    def isEmpty(self) -> bool:
         '''
         Check if the folder is empty.
         
@@ -97,10 +97,10 @@ class Folder:
             contents = []
             for root, dirs, files in os.walk(self.folderpath):
                 for item in dirs + files:
-                    full_path = os.path.join(root, item)
-                    rel_path = os.path.relpath(full_path, self.folderpath)
+                    fullPath = os.path.join(root, item)
+                    relPath = os.path.relpath(fullPath, self.folderpath)
                     if pattern is None or fnmatch.fnmatch(item, pattern):
-                        contents.append(rel_path)
+                        contents.append(relPath)
             return contents
         else:
             contents = os.listdir(self.folderpath)
@@ -127,14 +127,14 @@ class Folder:
             for root, _, filenames in os.walk(self.folderpath):
                 for filename in filenames:
                     if pattern is None or fnmatch.fnmatch(filename, pattern):
-                        full_path = os.path.join(root, filename)
-                        files.append(os.path.abspath(full_path))
+                        fullPath = os.path.join(root, filename)
+                        files.append(os.path.abspath(fullPath))
         else:
             for item in os.listdir(self.folderpath):
-                item_path = os.path.join(self.folderpath, item)
-                if os.path.isfile(item_path):
+                itemPath = os.path.join(self.folderpath, item)
+                if os.path.isfile(itemPath):
                     if pattern is None or fnmatch.fnmatch(item, pattern):
-                        files.append(os.path.abspath(item_path))
+                        files.append(os.path.abspath(itemPath))
         
         return files
     
@@ -155,13 +155,13 @@ class Folder:
         if recursive:
             for root, dirnames, _ in os.walk(self.folderpath):
                 for dirname in dirnames:
-                    full_path = os.path.join(root, dirname)
-                    rel_path = os.path.relpath(full_path, self.folderpath)
-                    folders.append(rel_path)
+                    fullPath = os.path.join(root, dirname)
+                    relPath = os.path.relpath(fullPath, self.folderpath)
+                    folders.append(relPath)
         else:
             for item in os.listdir(self.folderpath):
-                item_path = os.path.join(self.folderpath, item)
-                if os.path.isdir(item_path):
+                itemPath = os.path.join(self.folderpath, item)
+                if os.path.isdir(itemPath):
                     folders.append(item)
         return folders
     
@@ -189,21 +189,21 @@ class Folder:
         self.folderpath = destination
         self.path = Path(destination)
     
-    def rename(self, new_name: str) -> None:
+    def rename(self, newName: str) -> None:
         '''
         Rename the folder.
         
         Args:
-            new_name: New folder name
+            newName: New folder name
         '''
         if not self.exists():
             raise FileNotFoundError(f"Folder '{self.folderpath}' does not exist")
         
         parent = os.path.dirname(self.folderpath)
-        new_path = os.path.join(parent, new_name)
-        os.rename(self.folderpath, new_path)
-        self.folderpath = new_path
-        self.path = Path(new_path)
+        newPath = os.path.join(parent, newName)
+        os.rename(self.folderpath, newPath)
+        self.folderpath = newPath
+        self.path = Path(newPath)
     
     def getSize(self) -> int:
         '''
@@ -215,13 +215,13 @@ class Folder:
         if not self.exists():
             raise FileNotFoundError(f"Folder '{self.folderpath}' does not exist")
         
-        total_size = 0
+        totalSize = 0
         for dirpath, dirnames, filenames in os.walk(self.folderpath):
             for filename in filenames:
                 filepath = os.path.join(dirpath, filename)
                 if os.path.exists(filepath):
-                    total_size += os.path.getsize(filepath)
-        return total_size
+                    totalSize += os.path.getsize(filepath)
+        return totalSize
     
     def getSizeFormatted(self) -> str:
         '''
@@ -250,35 +250,35 @@ class Folder:
         if not self.exists():
             raise FileNotFoundError(f"Folder '{self.folderpath}' does not exist")
         
-        file_count = 0
-        folder_count = 0
+        fileCount = 0
+        folderCount = 0
         
         if recursive:
             for root, dirs, files in os.walk(self.folderpath):
-                file_count += len(files)
-                folder_count += len(dirs)
+                fileCount += len(files)
+                folderCount += len(dirs)
         else:
             for item in os.listdir(self.folderpath):
-                item_path = os.path.join(self.folderpath, item)
-                if os.path.isfile(item_path):
-                    file_count += 1
-                elif os.path.isdir(item_path):
-                    folder_count += 1
+                itemPath = os.path.join(self.folderpath, item)
+                if os.path.isfile(itemPath):
+                    fileCount += 1
+                elif os.path.isdir(itemPath):
+                    folderCount += 1
         
-        return {'files': file_count, 'folders': folder_count}
+        return {'files': fileCount, 'folders': folderCount}
     
-    def createSubfolder(self, subfolder_name: str) -> 'Folder':
+    def createSubfolder(self, subfolderName: str) -> 'Folder':
         '''
         Create a subfolder inside this folder.
         
         Args:
-            subfolder_name: Name of the subfolder
+            subfolderName: Name of the subfolder
         
         Returns:
             Folder instance for the new subfolder
         '''
-        subfolder_path = os.path.join(self.folderpath, subfolder_name)
-        subfolder = Folder(subfolder_path)
+        subfolderPath = os.path.join(self.folderpath, subfolderName)
+        subfolder = Folder(subfolderPath)
         subfolder.create()
         return subfolder
     
@@ -299,8 +299,8 @@ class Folder:
             raise FileNotFoundError(f"Folder '{self.folderpath}' does not exist")
         
         for item in os.listdir(self.folderpath):
-            item_path = os.path.join(self.folderpath, item)
-            if os.path.isfile(item_path):
-                os.remove(item_path)
-            elif os.path.isdir(item_path):
-                shutil.rmtree(item_path)
+            itemPath = os.path.join(self.folderpath, item)
+            if os.path.isfile(itemPath):
+                os.remove(itemPath)
+            elif os.path.isdir(itemPath):
+                shutil.rmtree(itemPath)

@@ -154,7 +154,7 @@ class SetupScreen(QFlow.Screen):
     
     def checkKey(self, key: str, button: QPushButton):
         # Check if it is a valid key
-        pattern = RELATIVES.RelativesFile.get('api-key-pattern')
+        pattern = RELATIVES.RelativesFile.get('auth')['ic-key-pattern']
         
         if not re.match(pattern, key):
             # Show error

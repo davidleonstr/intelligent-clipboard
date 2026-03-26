@@ -1,7 +1,13 @@
 {
-    "prompt-file": "app/prompt.md",
     "ic-key": null,
-    "api-key-pattern": "^AIzaSy[A-Za-z0-9_-]{33}$",
-    "key-combination": "ctrl+i",
-    "s-chiper": "IC-ZYNC"
+    "files": {
+        "prompt-file": "app/prompt.md"
+    },
+    "auth": {
+        "ic-key-pattern": "^AIzaSy[A-Za-z0-9_-]{33}$",
+        "s-chiper": "IC-ZYNC"
+    },
+    "keyboard": {
+        "key-combination": "ctrl+i"
+    }
 }

@@ -184,14 +184,14 @@ class HomeScreen(QFlow.Screen):
             def task():
                 try:
                     model = self.modelsCombo.currentText()
-                    asyncio.run(Combinations.onCtrlI(self.key, model))
+                    asyncio.run(Combinations.interpret(self.key, model))
                 finally:
                     # To avoid multiple executions
                     self.isRunning = False
 
             threading.Thread(target=task, daemon=True).start()
 
-        keyboard.add_hotkey(RELATIVES.RelativesFile.get('key-combination'), handleHotkey)
+        keyboard.add_hotkey(RELATIVES.RelativesFile.get('keyboard')['key-combination'], handleHotkey)
 
     def copyKey(self):
         # Copy key in clipboard

@@ -4,7 +4,7 @@ import pyperclip
 
 class Combinations:
     @staticmethod
-    async def onCtrlI(key: str, modelName: str):
+    async def interpret(key: str, modelName: str):
         # Prompt from config
         prompt = RELATIVES.prompt
         

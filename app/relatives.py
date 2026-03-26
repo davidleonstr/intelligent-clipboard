@@ -5,10 +5,10 @@ class Relatives:
         self.RelativesFile= JSONFile(r'app/relatives.json')
         'Application inherent configuration.'
 
-        self.prompt = open(self.RelativesFile.get('prompt-file'), encoding='utf-8').read()
+        self.prompt = open(self.RelativesFile.get('files')['prompt-file'], encoding='utf-8').read()
         'AI Prompt.'
 
-        self.SCIPHER = self.RelativesFile.get('s-chiper')
+        self.SCIPHER = self.RelativesFile.get('auth')['s-chiper']
         'Seed IC Key Cipher.'
 
         self.CIPHER: SeedCipher = SeedCipher(self.SCIPHER)

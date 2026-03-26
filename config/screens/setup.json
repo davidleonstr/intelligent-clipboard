@@ -1,7 +1,7 @@
 {
     "texts": {
         "labels": {
-            "title": "WELCOME, USER!\nSET YOUR AI API KEY",
+            "title": "WELCOME, USER!\nYOU NEED TO SET YOUR AI KEY",
             "appName": "INTELLIGENT CLIP"
         },
         "buttons": {

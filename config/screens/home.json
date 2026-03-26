@@ -12,7 +12,7 @@
             "help": "?"
         },
         "labels": {
-            "title": "AI HOME",
+            "title": "IC HOME",
             "key": "AI Key: ",
             "selectModel": "Select Your Model:",
             "enableService": "Enable Service:",

@@ -8,7 +8,7 @@ class Combinations:
         # Prompt from config
         prompt = RELATIVES.prompt
         
-        # Gemini Controller
+        # Service Controller
         controller = ServiceController(
             apiKey=key, 
             modelName=modelName, 

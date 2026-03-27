@@ -84,7 +84,7 @@ class HomeScreen(QFlow.Screen):
 
         self.helpButton = QPushButton(self.Config.texts.buttons.help)
         self.helpButton.setObjectName('normalButton')
-        self.helpButton.clicked.connect(self.goToHelp)
+        self.helpButton.clicked.connect(self.help)
 
         self.deleteKeyButton = QPushButton(self.Config.texts.buttons.deleteKey)
         self.deleteKeyButton.setObjectName('resetButton')
@@ -173,7 +173,7 @@ class HomeScreen(QFlow.Screen):
         updateKey = self.Session.getItem('updateKey')
         updateKey(None)
         
-        self.goToSetup()
+        self.setup()
 
         self.showNotify(
             self.Config.texts.notifications.keyDeleted,
@@ -196,17 +196,6 @@ class HomeScreen(QFlow.Screen):
         self.setKeyLabel(self.key)
         self.setModelsList(models)
 
-    def formatKey(self, key: str) -> str:
-        return (
-            self.Config.texts.labels.key 
-            +
-            ''.join(
-                self.Config.texts.labels.symbolToHideText if c != '-' else '-' for c in key
-            ) 
-            +
-            '.'
-        )
-
     def setKeyLabel(self, key: str):
         formatedKey = self.formatKey(key)
         self.keyLabel.setText(formatedKey)
@@ -228,8 +217,19 @@ class HomeScreen(QFlow.Screen):
         notify.show()
         return notify
     
-    def goToHelp(self):
+    def help(self):
         self.parent().setScreen('help')
     
-    def goToSetup(self):
+    def setup(self):
         self.parent().setScreen('setup')
+
+    def formatKey(self, key: str) -> str:
+        return (
+            self.Config.texts.labels.key 
+            +
+            ''.join(
+                self.Config.texts.labels.symbolToHideText if c != '-' else '-' for c in key
+            ) 
+            +
+            '.'
+        )

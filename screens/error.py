@@ -28,7 +28,7 @@ class ErrorScreen(QFlow.Screen):
         self.browser.page().setBackgroundColor(QColor('#1e1e1e'))
         self.browser.setUrl(
             QUrl.fromLocalFile(
-                os.path.abspath('screens/html/loading-screen.html')
+                os.path.abspath('screens/html/error-screen.html')
             )
         )
 

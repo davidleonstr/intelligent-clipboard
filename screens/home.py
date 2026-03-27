@@ -1,3 +1,7 @@
+import keyboard
+import threading
+import asyncio
+
 import QFlow
 from QFlow.modules import config, session
 from QFlow.components import Notify, ToggleSwitch
@@ -5,10 +9,6 @@ from QFlow.components import Notify, ToggleSwitch
 from config import CONFIG
 from helpers.builders import Object
 from helpers.files import JSON
-
-SCREENCONFIG = Object(
-    JSON(CONFIG.folders['configs']['screens']['home']).read()
-).obj
 
 from qtpy.QtWidgets import (
     QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QComboBox, QApplication
@@ -18,9 +18,9 @@ from qtpy.QtCore import QTimer
 from app.controllers import ServiceController
 from app import Combinations, RELATIVES
 
-import keyboard
-import threading
-import asyncio
+SCREENCONFIG = Object(
+    JSON(CONFIG.folders['configs']['screens']['home']).read()
+).obj
 
 @QFlow.screen(
     name='home',
@@ -33,54 +33,29 @@ class HomeScreen(QFlow.Screen):
         self.args['parent'] = parent
         super().__init__(**self.args)
 
-        # If request is running
         self.isRunning = False
 
     def effect(self):
-        # Get params
         self.params = QFlow.hooks.Params(self).get()
 
-        # Check if need
-        if self.params.get('loadModelsAndKey', False):
-            # API Key (It does not need to wait for a processor cycle in any case)
+        if self.params.get('key', False):
             self.key = self.params.get('key')
+            self.params.pop('key')
 
-            # Helper
             def load():
-                # Clear input
-                self.modelsCombo.clear()
+                self.loadScreenData()
 
-                # Load models
-                self.loadModels()
-
-                # Set new API Key text
-                self.keyLabel.setText(self.getKeyLabel())
-
-                # Delete flag
-                self.params.pop('loadModelsAndKey')
-
-            # I know these two evaluations are not necessary
-            if hasattr(self, 'modelsCombo') and hasattr(self, 'keyLabel'):
-                load() # Use helper
-                return # Return function
+            if hasattr(self, 'screenLayout'):
+                load()
+                return
                 
-            # Use a timer to wait for the UI to render if it didn't render from the start
             QTimer.singleShot(0, load)
 
     def UI(self):
-        # Off autoshow to modify properties
-        self.welcomeNotifiy = Notify(
+        self.showNotify(
             self.Config.texts.notifications.welcome,
-            type='info',
-            parent=self.parent(),
-            toggleProgressBar=False,
-            autoShow=False
+            'info'
         )
-        
-        # Set new contexts margins
-        self.welcomeNotifiy.containerLayout.setContentsMargins(20, 15, 20, 15)
-        # Show notifiy manually
-        self.welcomeNotifiy.show()
         
         self.screenlayout = QVBoxLayout()
         self.screenlayout.setContentsMargins(0, 0, 0, 0)
@@ -96,48 +71,53 @@ class HomeScreen(QFlow.Screen):
         self.title = QLabel(self.Config.texts.labels.title)
         self.title.setObjectName('title')
 
-        self.nav.addWidget(self.logo)
-        self.nav.addSpacing(8)
-        self.nav.addWidget(self.title)
-        self.nav.addStretch()
+        self.selectModelLbl = QLabel(self.Config.texts.labels.selectModel)
+        self.keyLabel = QLabel()
+        self.toggleServicelbl = QLabel(self.Config.texts.labels.enableService)
 
         self.content = QVBoxLayout()
         self.content.setContentsMargins(30, 10, 10, 10)
+        self.content.setSpacing(15)
 
         self.bottom = QHBoxLayout()
         self.bottom.setContentsMargins(30, 10, 10, 10)
 
-        self.keyLayout = QHBoxLayout()
+        self.helpButton = QPushButton(self.Config.texts.buttons.help)
+        self.helpButton.setObjectName('normalButton')
+        self.helpButton.clicked.connect(
+            lambda: self.parent().setScreen('help')
+        )
 
-        # Set key label by function return
-        self.keyLabel = QLabel(self.getKeyLabel())
+        self.deleteKeyButton = QPushButton(self.Config.texts.buttons.deleteKey)
+        self.deleteKeyButton.setObjectName('resetButton')
+        self.deleteKeyButton.clicked.connect(self.deleteKey)
+
+        self.modelsCombo = QComboBox()
+
+        self.keyLayout = QHBoxLayout()
+        self.selectModelLayout = QHBoxLayout()
+        self.toggleServiceLayout = QHBoxLayout()
 
         self.copyKeyBtn = QPushButton(self.Config.texts.buttons.copyKey)
-        # Set default object name for button style
         self.copyKeyBtn.setObjectName('normalButton')
         self.copyKeyBtn.clicked.connect(self.copyKey)
+
+        self.toggleServiceSwitch = ToggleSwitch(self, checked=False)
+
+        self.nav.addWidget(self.logo)
+        self.nav.addSpacing(8)
+        self.nav.addWidget(self.title)
+        self.nav.addStretch()
 
         self.keyLayout.addWidget(self.keyLabel)
         self.keyLayout.addSpacing(5)
         self.keyLayout.addWidget(self.copyKeyBtn)
         self.keyLayout.addStretch(1)
 
-        self.toggleServiceLayout = QHBoxLayout()
-
-        self.toggleServicelbl = QLabel(self.Config.texts.labels.enableService)
-
-        self.toggleServiceSwitch = ToggleSwitch(self, checked=False)
-
         self.toggleServiceLayout.addWidget(self.toggleServicelbl)
         self.toggleServiceLayout.addSpacing(5)
         self.toggleServiceLayout.addWidget(self.toggleServiceSwitch)
         self.toggleServiceLayout.addStretch(1)
-
-        self.selectModelLayout = QHBoxLayout()
-
-        self.selectModelLbl = QLabel(self.Config.texts.labels.selectModel)
-
-        self.modelsCombo = QComboBox()
 
         self.selectModelLayout.addWidget(self.selectModelLbl)
         self.selectModelLayout.addSpacing(5)
@@ -148,52 +128,27 @@ class HomeScreen(QFlow.Screen):
         self.content.addLayout(self.selectModelLayout)
         self.content.addLayout(self.toggleServiceLayout)
 
-        self.content.setSpacing(15)
-
-        self.deleteKeyButton = QPushButton(self.Config.texts.buttons.deleteKey)
-        self.deleteKeyButton.setObjectName('resetButton')
-
-        self.deleteKeyButton.clicked.connect(self.deleteKey)
-
         self.bottom.addWidget(self.deleteKeyButton)
-
         self.bottom.addStretch(1) 
-        
-        self.helpButton = QPushButton(self.Config.texts.buttons.help)
-
-        # Set default object name for button style
-        self.helpButton.setObjectName('normalButton')
-
-        # Move to help screens
-        self.helpButton.clicked.connect(
-            lambda: self.parent().setScreen('help')
-        )
-
         self.bottom.addWidget(self.helpButton)
 
         self.screenlayout.addLayout(self.nav)
         self.screenlayout.addLayout(self.content)
-
         self.screenlayout.addStretch(1) 
-
         self.screenlayout.addLayout(self.bottom)
 
         self.setLayout(self.screenlayout)
 
-        # Set listeners
         self.setListeners()
 
-    # Home exclusive listener
     def setListeners(self):
         def handleHotkey():
-            # To avoid multiple executions
             if self.isRunning:
                 return
 
             if not self.toggleServiceSwitch.isChecked():
                 return
 
-            # To avoid multiple executions
             self.isRunning = True
 
             def task():
@@ -201,7 +156,6 @@ class HomeScreen(QFlow.Screen):
                     model = self.modelsCombo.currentText()
                     asyncio.run(Combinations.interpret(self.key, model))
                 finally:
-                    # To avoid multiple executions
                     self.isRunning = False
 
             threading.Thread(target=task, daemon=True).start()
@@ -209,78 +163,68 @@ class HomeScreen(QFlow.Screen):
         keyboard.add_hotkey(RELATIVES.RelativesFile.get('keyboard')['key-combination'], handleHotkey)
 
     def copyKey(self):
-        # Copy key in clipboard
         clipboard = QApplication.clipboard()
         clipboard.setText(self.key)
 
-        self.keyCopiedNotify = Notify(
+        self.showNotify(
             self.Config.texts.notifications.keyCopied,
-            type='success',
-            parent=self.parent(),
-            toggleProgressBar=False,
-            autoShow=False
+            'success'
         )
-
-        # Set new contexts margins and show notify
-        self.keyCopiedNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
-        self.keyCopiedNotify.show()
     
     def deleteKey(self):
-        self.parent().updateKey('') # Set IC key in blank
+        self.parent().updateKey(None)
         
-        # Redirect
         self.parent().setScreen('setup')
 
-        # Code after redirect
-        self.deleteKeyNotify = Notify(
+        self.showNotify(
             self.Config.texts.notifications.keyDeleted,
-            type='success',
+            'success'
+        )
+    
+    def loadScreenData(self) -> list:
+        models = ServiceController(self.key).getAvailableModels()
+
+        self.toggleServiceSwitch.setDisabled(False)
+
+        if not models:
+            self.showNotify(
+                self.Config.texts.notifications.noModels,
+                'error'
+            )
+
+            self.toggleServiceSwitch.setDisabled(True)
+
+        self.setKeyLabel(self.key)
+        self.setModelsList(models)
+
+    def formatKey(self, key: str) -> str:
+        return (
+            self.Config.texts.labels.key 
+            +
+            ''.join(
+                self.Config.texts.labels.symbolToHideText if c != '-' else '-' for c in key
+            ) 
+            +
+            '.'
+        )
+
+    def setKeyLabel(self, key: str):
+        formatedKey = self.formatKey(key)
+        self.keyLabel.setText(formatedKey)
+    
+    def setModelsList(self, models: list) -> None:
+        self.modelsCombo.clear()
+        self.modelsCombo.addItems(models)
+        self.modelsCombo.setCurrentIndex(0)
+    
+    def showNotify(self, message: str, type: str):
+        notify = Notify(
+            message,
+            type=type,
             parent=self.parent(),
             toggleProgressBar=False,
             autoShow=False
         )
-
-        # Set new contexts margins and show notify
-        self.deleteKeyNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
-        self.deleteKeyNotify.show()
-    
-    def loadModels(self) -> list:
-        # Get models
-        models = ServiceController(self.key).getAvailableModels()
-
-        # Enable switch service on success
-        self.toggleServiceSwitch.setDisabled(False)
-
-        # Check if models availables
-        if not models:
-            self.noModelsNotify = Notify(
-                self.Config.texts.notifications.noModels,
-                type='error',
-                parent=self.parent(),
-                toggleProgressBar=False,
-                autoShow=False
-            )
-
-            # Set new contexts margins and show notify
-            self.noModelsNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
-            self.noModelsNotify.show()  
-
-            # Dissable switch service on error
-            self.toggleServiceSwitch.setDisabled(True)
-
-        # Add models to options
-        self.modelsCombo.addItems(models)
-
-        # Select the first model
-        self.modelsCombo.setCurrentIndex(0)
-
-    # Function to get key label text
-    def getKeyLabel(self) -> str:
-        return (
-            self.Config.texts.labels.key +
-            # Keep the - in Google keys
-            ''.join(
-                self.Config.texts.labels.symbolToHideText if c != '-' else '-' for c in self.key
-            ) +
-            '.' # Inherent point
-        )
+        notify.containerLayout.setContentsMargins(20, 15, 20, 15)
+        notify.show()
+        return notify

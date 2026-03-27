@@ -25,11 +25,9 @@ class Config:
         }
         'Dict that contains global styles and configurations of windows and screens.'
     
-    # Resolve paths using names
     def loadFolderFiles(items: list) -> dict:
         files = {}
 
-        # Insert name instead name + suffix
         for item in items:
             item: str
             name, _ = os.path.splitext(os.path.basename(item))
@@ -38,6 +36,5 @@ class Config:
 
         return files
 
-# Global config
 CONFIG = Config()
 'Application Inherent Configuration.'

@@ -1,13 +1,10 @@
+import os
+
 import QFlow
 from QFlow.modules import session, config
 
-from config import CONFIG
 from helpers.builders import Object
 from helpers.files import JSON
-
-SCREENCONFIG = Object(
-    JSON(CONFIG.folders['configs']['screens']['help']).read()
-).obj
 
 from qtpy.QtWidgets import (
     QVBoxLayout, QPushButton, QHBoxLayout
@@ -15,7 +12,12 @@ from qtpy.QtWidgets import (
 from qtpy.QtGui import QColor
 from qtpy.QtCore import QUrl
 from qtpy.QtWebEngineWidgets import QWebEngineView
-import os
+
+from config import CONFIG
+
+SCREENCONFIG = Object(
+    JSON(CONFIG.folders['configs']['screens']['help']).read()
+).obj
 
 @QFlow.screen(
     name='help',
@@ -29,39 +31,28 @@ class HelpScreen(QFlow.Screen):
         super().__init__(**self.args)
 
     def UI(self):
-        # Create screen layout
         self.screenlayout = QVBoxLayout()
+        self.bottom = QHBoxLayout()
 
-        # Init brower
         self.browser = QWebEngineView()
-
-        # To avoid white flash
         self.browser.setStyleSheet('background-color: #1e1e1e;')
         self.browser.page().setBackgroundColor(QColor('#1e1e1e'))
-
-        # Set screen
-        path = os.path.abspath('screens/html/help-screen.html')
-        self.browser.setUrl(QUrl.fromLocalFile(path))
+        self.browser.setUrl(
+            QUrl.fromLocalFile(
+                os.path.abspath('screens/html/help-screen.html')
+            )
+        )
         
-        # Add browser
-        self.screenlayout.addWidget(self.browser)
-
-        self.bottom = QHBoxLayout()
-        
-        # Create back button
         self.backButton = QPushButton(self.Config.texts.buttons.goBack)
-        # Set default object name for button style
         self.backButton.setObjectName('normalButton')
-        # Add action
         self.backButton.clicked.connect(
             self.parent().goBack
         )
 
         self.bottom.addStretch(1)
         self.bottom.addWidget(self.backButton)
-
-        # Add back button
+        
+        self.screenlayout.addWidget(self.browser)
         self.screenlayout.addLayout(self.bottom)
 
-        # Set layour
         self.setLayout(self.screenlayout)

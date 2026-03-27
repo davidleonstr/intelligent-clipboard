@@ -1,24 +1,25 @@
-import QFlow
-from QFlow.modules import config, session
-from QFlow.components import Notify
 import re
 
+import QFlow
+from QFlow.helpers import Icon
+from QFlow.modules import config, session
+from QFlow.components import Notify
+
+from app import RELATIVES
 from config import CONFIG
+
 from helpers.builders import Object
 from helpers.files import JSON
-
-SCREENCONFIG = Object(
-    JSON(CONFIG.folders['configs']['screens']['setup']).read()
-).obj
 
 from qtpy.QtWidgets import (
     QVBoxLayout, QLabel, QLineEdit, QPushButton, QHBoxLayout, QFormLayout, QWidget
 )
 from qtpy.QtCore import Qt, QTimer
 
-from app import RELATIVES
+SCREENCONFIG = Object(
+    JSON(CONFIG.folders['configs']['screens']['setup']).read()
+).obj
 
-# Initial Form
 @config(SCREENCONFIG)
 class KeyForm(QWidget):
     def __init__(self, parent):
@@ -28,68 +29,54 @@ class KeyForm(QWidget):
         centerLayout = QHBoxLayout()
 
         formLayout = QFormLayout()
-        formLayout.setFormAlignment(Qt.AlignCenter)
-        formLayout.setLabelAlignment(Qt.AlignLeft)
+        formLayout.setFormAlignment(Qt.AlignmentFlag.AlignCenter)
+        formLayout.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
 
         self.title = QLabel(
             self.Config.texts.labels.title
         )
         self.title.setObjectName('subtitle')
-        self.title.setAlignment(Qt.AlignCenter)
+        self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.logo = QLabel()
-
-        logoPixmap = QFlow.helpers.Icon(self.Config.icons.appIcon, 120, 120)
-
+        logoPixmap = Icon(self.Config.icons.appIcon, 120, 120)
         self.logo.setPixmap(logoPixmap)
-        self.logo.setAlignment(Qt.AlignCenter)
-
-        self.inputKey = QLineEdit()
-        self.inputKey.setPlaceholderText(self.Config.texts.inputs.inputKey)
-        self.inputKey.setFixedWidth(250)
-        self.inputKey.setEchoMode(QLineEdit.Password)
-
-        self.btnConfirm = QPushButton(self.Config.texts.buttons.confirmKey)
-        self.btnConfirm.setObjectName('resetButton')
-
-        # Execute checking
-        self.btnConfirm.clicked.connect(
-            lambda: self.parent().checkKey(
-                key=self.inputKey.text().strip(),
-                button=self.btnConfirm
-            )
-        )
-
-        container = QVBoxLayout()
-        container.setAlignment(Qt.AlignCenter)
-
-        container = QVBoxLayout()
-        container.setAlignment(Qt.AlignCenter)
-
-        container.addWidget(self.logo)
+        self.logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.appName = QLabel(self.Config.texts.labels.appName)
         self.appName.setObjectName('title')
         self.appName.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        container.addWidget(self.appName)
-        container.addSpacing(10)
-
-        container.addWidget(self.title)
-        container.addSpacing(10)
+        self.inputKey = QLineEdit()
+        self.inputKey.setPlaceholderText(self.Config.texts.inputs.inputKey)
+        self.inputKey.setFixedWidth(250)
+        self.inputKey.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.aiLogo = QLabel()
-
-        aiPixmap = QFlow.helpers.Icon(self.Config.icons.aiIcon, 31, 31)
-
+        aiPixmap = Icon(self.Config.icons.aiIcon, 31, 31)
         self.aiLogo.setPixmap(aiPixmap)
-        self.aiLogo.setAlignment(Qt.AlignCenter)
+        self.aiLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.btnConfirm = QPushButton(self.Config.texts.buttons.confirmKey)
+        self.btnConfirm.setObjectName('resetButton')
+        self.btnConfirm.clicked.connect(self.sendKey)
+
+        container = QVBoxLayout()
+        container.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        container = QVBoxLayout()
+        container.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        container.addWidget(self.logo)
+        container.addWidget(self.appName) 
+        container.addSpacing(10)
+        container.addWidget(self.title)
+        container.addSpacing(10)
 
         formLayout.addRow(self.aiLogo, self.inputKey)
 
         container.addLayout(formLayout)
         container.addSpacing(10)
-
         container.addWidget(self.btnConfirm)
 
         centerLayout.addStretch()
@@ -101,6 +88,14 @@ class KeyForm(QWidget):
         mainLayout.addStretch()
 
         self.setLayout(mainLayout)
+    
+    def sendKey(self) -> None:
+        parent: SetupScreen = self.parent()
+        parent.processKey(
+            key=self.inputKey.text().strip(),
+            button=self.btnConfirm,
+            input=self.inputKey
+        )
 
 @QFlow.screen(
     name='setup',
@@ -114,90 +109,64 @@ class SetupScreen(QFlow.Screen):
         super().__init__(**self.args)
 
     def UI(self):
-        # Create screen layout
         self.screenlayout = QVBoxLayout()
-
-        # Create form
         self.keyForm = KeyForm(parent=self)
-
-        # Add form
         self.screenlayout.addWidget(self.keyForm)
-
-        # Set layour
         self.setLayout(self.screenlayout)
-    
-    def checkKey(self, key: str, button: QPushButton):
-        # Check if it is a valid key
+
+    def validateKey(self, key: str) -> bool:
         pattern = RELATIVES.RelativesFile.get('auth')['ic-key-pattern']
-        
-        if not re.match(pattern, key):
-            # Show error
-            self.invalidKeyNotify = Notify(
-                self.Config.texts.notifications.invalidKey, 
-                type='error', 
-                parent=self.parent(),
-                toggleProgressBar=False,
-                autoShow=False
-            )
-
-            # Set new contexts margins and show notify
-            self.invalidKeyNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
-            self.invalidKeyNotify.show()
-
-            # Return if error
+        return bool(re.match(pattern, key))
+    
+    def processKey(self, key: str, button: QPushButton, input: QLineEdit):
+        if not self.validateKey(key):
+            self.handleInvalidKey()
             return
-        
-        # Disable
-        button.setDisabled(True)
-        
-        # Key Setted
-        self.keySettedNotify = Notify(
-            self.Config.texts.notifications.keySetted, 
-            type='success', 
-            parent=self.parent(),
-            toggleProgressBar=False,
-            autoShow=False
+
+        self.handleValidKey(key, button, input)
+
+    def handleInvalidKey(self):
+        self.showNotify(
+            self.Config.texts.notifications.invalidKey,
+            'error'
         )
 
-        # Set new contexts margins and show notify
-        self.keySettedNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
-        self.keySettedNotify.show()
-
-        # Show redirecting
-        self.redirectingNotify = Notify(
-            self.Config.texts.notifications.redirecting, 
-            type='info', 
-            parent=self.parent(),
-            toggleProgressBar=False,
-            autoShow=False
-        )
-
-        # Set new contexts margins and show notify
-        self.redirectingNotify.containerLayout.setContentsMargins(20, 15, 20, 15)
-        self.redirectingNotify.show()
-
-        # Update key using app method
+    def handleValidKey(self, key: str, button: QPushButton, input: QLineEdit):
         self.parent().updateKey(key)
 
-        # Helper
-        def onRedirecting():
-            # Enable button before redirect
-            button.setDisabled(False)
+        button.setDisabled(True)
 
-            # Clear input
-            self.keyForm.inputKey.clear()
+        self.showNotify(self.Config.texts.notifications.keySetted, 'success')
 
-            # Redirect
-            self.parent().setScreen(
-                'home', 
-                args={
-                    'key': key,
-                    'loadModelsAndKey': True # Flag to load models and set key
-                }
-            )
-
-        # Move to the other screen after notifications end (estimated time)
-        QTimer.singleShot(
-            self.redirectingNotify.duration, 
-            onRedirecting
+        redirectNotify = self.showNotify(
+            self.Config.texts.notifications.redirecting,
+            'info'
         )
+
+        QTimer.singleShot(
+            redirectNotify.duration,
+            lambda: self.redirect(key, button, input)
+        )
+
+    def redirect(self, key: str, button: QPushButton, input: QLineEdit):
+        button.setDisabled(False)
+        input.clear()
+
+        self.parent().setScreen(
+            name='home',
+            args={
+                'key': key
+            }
+        )
+
+    def showNotify(self, message: str, type: str):
+        notify = Notify(
+            message,
+            type=type,
+            parent=self.parent(),
+            toggleProgressBar=False,
+            autoShow=False
+        )
+        notify.containerLayout.setContentsMargins(20, 15, 20, 15)
+        notify.show()
+        return notify

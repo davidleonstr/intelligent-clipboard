@@ -15,7 +15,6 @@ APPCONFIG = JSONFile(CONFIG.folders['configs']['windows']['main']).read()
 
 import sys
 from qtpy.QtWidgets import QApplication
-from qtpy.QtCore import QTimer
 from qtpy.QtGui import QIcon
 import os
 
@@ -28,6 +27,9 @@ from templates import DefaultTemplate
 import base64
 
 from helpers import hasInternet
+
+# Web bridge
+from helpers import Bridge
 
 @QFlow.app(
     title=APPCONFIG.get('title'), 
@@ -60,9 +62,6 @@ class App(QFlow.App):
 
             # Stop here
             return 
-        
-        # Set loading screen
-        self.setScreen(self.loadingScreen.name)
 
         # Initial screen
         initialScreen = self.setupScreen.name
@@ -87,8 +86,17 @@ class App(QFlow.App):
             # Initial screen
             initialScreen = self.homeScreen.name
 
-        # Set screen after loading (estimated time)
-        QTimer.singleShot(4500, lambda: self.setScreen(initialScreen, args=args))
+        # Set load channel
+        self.bridge = Bridge()
+        self.bridge.add(
+            'finished', # Function name in JS to use in execute
+            lambda: self.setScreen(initialScreen, args=args) # lambda to set next screen
+        )
+
+        # Set loading screen
+        self.setScreen(self.loadingScreen.name, args={
+            'bridge': self.bridge # Add the bridge
+        })
     
     # Update key
     def updateKey(self, key: str):

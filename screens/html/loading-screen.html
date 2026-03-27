@@ -169,12 +169,37 @@
     </div>
 </div>
 
+<!-- PyQt Brige -->
+<script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+
 <script>
+    // Channel
+    new QWebChannel(qt.webChannelTransport, function(channel) {
+        window.bridge = channel.objects.bridge;
+
+        // Function to finish the view
+        finish = function finish() {
+            bridge.execute('finished');
+        }
+    });
+
+    // Finish time in ms
+    let finishTime = 2200;
+
+    // Addtion at the end
+    let additionToFinish = 1100;
+
     const splash = document.getElementById('splash');
 
+    // Activate fade out
     setTimeout(() => {
         splash.classList.add('fade-out');
-    }, 2200);
+    }, finishTime);
+
+    // Execute Python function
+    setTimeout(() => {
+        finish();
+    }, finishTime + additionToFinish);
 </script>
 
 </body>

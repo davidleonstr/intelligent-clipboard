@@ -207,7 +207,7 @@ class SetupScreen(QFlow.Screen):
 
         # Move to the other screen after notifications end (estimated time)
         QTimer.singleShot(
-            2500, 
+            self.redirectingNotify.duration, 
             lambda: self.parent().setScreen(
                 'home', 
                 args={

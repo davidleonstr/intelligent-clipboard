@@ -7,7 +7,7 @@ import base64
 
 import QFlow
 from QFlow.extensions import QWebEngineViewBridge
-from QFlow.modules import style
+from QFlow.modules import style, session
 
 from config import CONFIG
 from app import RELATIVES
@@ -34,6 +34,7 @@ APPCONFIG = JSON(CONFIG.folders['configs']['windows']['main']).read()
     style=CONFIG.folders.get('styles')[APPCONFIG['style']], 
     path=True
 )
+@session()
 class App(QFlow.App):
     def __init__(self):
         self.setupScreen = SetupScreen(parent=self)
@@ -53,10 +54,12 @@ class App(QFlow.App):
             return 
 
         initialScreen = self.setupScreen.name
-
-        self.key = RELATIVES.RelativesFile.get('ic-key', False)
-
         args = {}
+
+        self.key = RELATIVES.RelativesFile.get(
+            'ic-key', 
+            False
+        )
 
         if self.key:
             args = {
@@ -74,6 +77,8 @@ class App(QFlow.App):
         self.setScreen(self.loadingScreen.name, args={
             'bridge': self.bridge
         })
+
+        self.Session.setItem('updateKey', self.updateKey)
     
     def updateKey(self, key: str):
         if not key:

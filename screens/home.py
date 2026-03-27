@@ -84,9 +84,7 @@ class HomeScreen(QFlow.Screen):
 
         self.helpButton = QPushButton(self.Config.texts.buttons.help)
         self.helpButton.setObjectName('normalButton')
-        self.helpButton.clicked.connect(
-            lambda: self.parent().setScreen('help')
-        )
+        self.helpButton.clicked.connect(self.goToHelp)
 
         self.deleteKeyButton = QPushButton(self.Config.texts.buttons.deleteKey)
         self.deleteKeyButton.setObjectName('resetButton')
@@ -172,9 +170,10 @@ class HomeScreen(QFlow.Screen):
         )
     
     def deleteKey(self):
-        self.parent().updateKey(None)
+        updateKey = self.Session.getItem('updateKey')
+        updateKey(None)
         
-        self.parent().setScreen('setup')
+        self.goToSetup()
 
         self.showNotify(
             self.Config.texts.notifications.keyDeleted,
@@ -228,3 +227,9 @@ class HomeScreen(QFlow.Screen):
         notify.containerLayout.setContentsMargins(20, 15, 20, 15)
         notify.show()
         return notify
+    
+    def goToHelp(self):
+        self.parent().setScreen('help')
+    
+    def goToSetup(self):
+        self.parent().setScreen('setup')

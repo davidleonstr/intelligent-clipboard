@@ -45,9 +45,7 @@ class HelpScreen(QFlow.Screen):
         
         self.backButton = QPushButton(self.Config.texts.buttons.goBack)
         self.backButton.setObjectName('normalButton')
-        self.backButton.clicked.connect(
-            self.parent().goBack
-        )
+        self.backButton.clicked.connect(self.parent().goBack)
 
         self.bottom.addStretch(1)
         self.bottom.addWidget(self.backButton)

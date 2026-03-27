@@ -132,7 +132,8 @@ class SetupScreen(QFlow.Screen):
         )
 
     def handleValidKey(self, key: str, button: QPushButton, input: QLineEdit):
-        self.parent().updateKey(key)
+        updateKey = self.Session.getItem('updateKey')
+        updateKey(key)
 
         button.setDisabled(True)
 

@@ -29,7 +29,7 @@ import base64
 from helpers.checkers import hasInternet
 
 # Web bridge
-from helpers import Bridge
+from QFlow.extensions import QWebEngineViewBridge
 
 @QFlow.app(
     title=APPCONFIG.get('title'), 
@@ -88,7 +88,7 @@ class App(QFlow.App):
             initialScreen = self.homeScreen.name
 
         # Set load channel
-        self.bridge = Bridge()
+        self.bridge = QWebEngineViewBridge()
         self.bridge.add(
             'finished', # Function name in JS to use in execute
             lambda: self.setScreen(initialScreen, args=args) # lambda to set next screen

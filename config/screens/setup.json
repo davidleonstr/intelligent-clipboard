@@ -2,7 +2,7 @@
     "texts": {
         "labels": {
             "title": "WELCOME, USER!\nYOU NEED TO SET YOUR AI KEY",
-            "appName": "INTELLIGENT CLIP"
+            "appName": "INTELLIGENT CLIPBOARD"
         },
         "buttons": {
             "confirmKey": "CONFIRM"

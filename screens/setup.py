@@ -3,7 +3,6 @@ import re
 import QFlow
 from QFlow.helpers import Icon
 from QFlow.modules import config, session
-from QFlow.components import Notify
 
 from app import RELATIVES
 from config import CONFIG
@@ -115,6 +114,7 @@ class SetupScreen(QFlow.Screen):
         self.setLayout(self.screenlayout)
 
         self.updateKey = self.Session.getItem('updateKey')
+        self.showNotify = self.Session.getItem('showNotify')
 
     def validateKey(self, key: str) -> bool:
         pattern = RELATIVES.RelativesFile.get('auth')['ic-key-pattern']
@@ -160,15 +160,3 @@ class SetupScreen(QFlow.Screen):
                 'key': key
             }
         )
-
-    def showNotify(self, message: str, type: str):
-        notify = Notify(
-            message,
-            type=type,
-            parent=self.parent(),
-            toggleProgressBar=False,
-            autoShow=False
-        )
-        notify.containerLayout.setContentsMargins(20, 15, 20, 15)
-        notify.show()
-        return notify

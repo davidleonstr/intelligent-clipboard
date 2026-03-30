@@ -5,7 +5,8 @@
             "configs": {
                 "windows": "config/windows",
                 "screens": "config/screens"
-            }
+            },
+            "icons": "resources/icons/functions"
         }
     }
 }

@@ -6,6 +6,8 @@ import sys
 import base64
 
 import QFlow
+from QFlow.components import Notify
+from QFlow.helpers import Icon
 from QFlow.extensions import QWebEngineViewBridge
 from QFlow.modules import style, session
 
@@ -79,6 +81,7 @@ class App(QFlow.App):
         })
 
         self.Session.setItem('updateKey', self.updateKey)
+        self.Session.setItem('showNotify', self.showNotify)
     
     def updateKey(self, key: str):
         if not key:
@@ -101,6 +104,25 @@ class App(QFlow.App):
             key
             )
         )
+
+    def showNotify(self, message: str, type: str):
+        customTypes = {
+            'success': Icon(CONFIG.folders['icons']['success-icon'], 25, 25),
+            'info': Icon(CONFIG.folders['icons']['info-icon'], 25, 25),
+            'error': Icon(CONFIG.folders['icons']['error-icon'], 25, 25)
+        }
+
+        notify = Notify(
+            message,
+            type=type,
+            parent=self,
+            toggleProgressBar=False,
+            autoShow=False,
+            customIcon=customTypes.get(type, None)
+        )
+        notify.containerLayout.setContentsMargins(20, 15, 20, 15)
+        notify.show()
+        return notify
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

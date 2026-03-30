@@ -4,7 +4,7 @@ import asyncio
 
 import QFlow
 from QFlow.modules import config, session
-from QFlow.components import Notify, ToggleSwitch
+from QFlow.components import ToggleSwitch
 
 from config import CONFIG
 from helpers.builders import Object
@@ -51,12 +51,7 @@ class HomeScreen(QFlow.Screen):
                 
             QTimer.singleShot(0, load)
 
-    def UI(self):
-        self.showNotify(
-            self.Config.texts.notifications.welcome,
-            'info'
-        )
-        
+    def UI(self):        
         self.screenlayout = QVBoxLayout()
         self.screenlayout.setContentsMargins(0, 0, 0, 0)
         self.screenlayout.setSpacing(0)
@@ -138,6 +133,12 @@ class HomeScreen(QFlow.Screen):
         self.setLayout(self.screenlayout)
 
         self.updateKey = self.Session.getItem('updateKey')
+        self.showNotify = self.Session.getItem('showNotify')
+        
+        self.showNotify(
+            self.Config.texts.notifications.welcome,
+            'info'
+        )
 
         self.setListeners()
 
@@ -211,18 +212,6 @@ class HomeScreen(QFlow.Screen):
         self.modelsCombo.clear()
         self.modelsCombo.addItems(models)
         self.modelsCombo.setCurrentIndex(0)
-    
-    def showNotify(self, message: str, type: str):
-        notify = Notify(
-            message,
-            type=type,
-            parent=self.parent(),
-            toggleProgressBar=False,
-            autoShow=False
-        )
-        notify.containerLayout.setContentsMargins(20, 15, 20, 15)
-        notify.show()
-        return notify
     
     def help(self):
         self.parent().setScreen('help')

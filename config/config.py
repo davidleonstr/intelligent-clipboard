@@ -21,7 +21,10 @@ class Config:
                 'screens': Config.loadFolderFiles(
                     Folder(self.CONFIG['app']['folders']['configs']['screens']).listFiles()
                 )
-            }
+            },
+            'icons': Config.loadFolderFiles(
+                Folder(self.CONFIG['app']['folders']['icons']).listFiles()
+            )
         }
         'Dict that contains global styles and configurations of windows and screens.'
     

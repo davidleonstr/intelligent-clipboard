@@ -125,7 +125,7 @@ QPushButton#resetButton:disabled {
 
 QComboBox {
     border-radius: 1px;
-    padding: 5px 8px;
+    padding: 8px 12px;
 }
 
 QComboBox QAbstractItemView {

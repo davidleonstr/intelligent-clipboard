@@ -57,7 +57,7 @@ class HomeScreen(QFlow.Screen):
         self.screenlayout.setSpacing(0)
 
         self.nav = QHBoxLayout()
-        self.nav.setContentsMargins(30, 10, 10, 10)
+        self.nav.setContentsMargins(30, 20, 30, 10)
 
         self.logo = QLabel()
         logoPixmap = QFlow.helpers.Icon(self.Config.icons.appIcon, 42, 42)
@@ -71,11 +71,11 @@ class HomeScreen(QFlow.Screen):
         self.toggleServicelbl = QLabel(self.Config.texts.labels.enableService)
 
         self.content = QVBoxLayout()
-        self.content.setContentsMargins(30, 10, 10, 10)
-        self.content.setSpacing(15)
+        self.content.setContentsMargins(30, 10, 30, 10)
+        self.content.setSpacing(20)
 
         self.bottom = QHBoxLayout()
-        self.bottom.setContentsMargins(30, 10, 10, 10)
+        self.bottom.setContentsMargins(30, 10, 30, 10)
 
         self.helpButton = QPushButton(self.Config.texts.buttons.help)
         self.helpButton.setObjectName('normalButton')
@@ -95,7 +95,11 @@ class HomeScreen(QFlow.Screen):
         self.copyKeyBtn.setObjectName('normalButton')
         self.copyKeyBtn.clicked.connect(self.copyKey)
 
-        self.toggleServiceSwitch = ToggleSwitch(self, checked=False)
+        self.toggleServiceSwitch = ToggleSwitch(
+            self, checked=False,
+            height=30,
+            width=55
+        )
 
         self.nav.addWidget(self.logo)
         self.nav.addSpacing(8)
@@ -103,17 +107,14 @@ class HomeScreen(QFlow.Screen):
         self.nav.addStretch()
 
         self.keyLayout.addWidget(self.keyLabel)
-        self.keyLayout.addSpacing(5)
         self.keyLayout.addWidget(self.copyKeyBtn)
         self.keyLayout.addStretch(1)
 
         self.toggleServiceLayout.addWidget(self.toggleServicelbl)
-        self.toggleServiceLayout.addSpacing(5)
         self.toggleServiceLayout.addWidget(self.toggleServiceSwitch)
         self.toggleServiceLayout.addStretch(1)
 
         self.selectModelLayout.addWidget(self.selectModelLbl)
-        self.selectModelLayout.addSpacing(5)
         self.selectModelLayout.addWidget(self.modelsCombo)
         self.selectModelLayout.addStretch(1)
 

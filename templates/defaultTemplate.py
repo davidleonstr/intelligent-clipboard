@@ -28,6 +28,8 @@ class DefaultTemplate(Template):
             onWindowMinimize=self.windowsMinimize,
         )
 
+        self.titleBar.title.setContentsMargins(5, 0, 0, 0)
+
         self.titleBar.btnMaximize.setDisabled(True)
 
         self.screens = QStackedWidget()

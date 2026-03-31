@@ -17,6 +17,7 @@ The application is designed for precision tasks that benefit from consistent, pr
 ## Features
 
 - Hotkey-activated clipboard processing via the AI API
+- Functional with all OpenAI-compatible API endpoints
 - Secure local storage of the API key using a seed-based XOR cipher
 - Model selection from all AI models that support content generation
 - Frameless, resizable window with a custom title bar
@@ -25,17 +26,12 @@ The application is designed for precision tasks that benefit from consistent, pr
 
 ## Requirements
 
-- Python 3.10 or higher
-- PyQt6
-- QFlow (internal UI framework)
-- `openai`
-- `keyboard`
-- `pyperclip`
+- Python `3.10` or higher
 
 Install dependencies:
 
 ```bash
-pip install PyQt6 openai keyboard pyperclip
+pip install -r requirements.txt
 ```
 
 ## Setup
@@ -64,7 +60,7 @@ From the home screen:
 
 ## Configuration
 
-Application behavior is driven by JSON configuration files resolved through `config/config.json`. Key runtime values — including the hotkey combination, API key pattern, prompt file path, and cipher seed — are defined in `app/relatives.json`.
+Application behavior is driven by JSON configuration files resolved through `config/config.json`. Key runtime values — including the hotkey combination, API key pattern, prompt file path, artificial intelligence API endpoint, and cipher seed — are defined in `app/relatives.json`.
 
 The system prompt used for AI processing is loaded from the file path specified in `relatives.json` and sent automatically with every clipboard request.
 

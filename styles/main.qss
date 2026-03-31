@@ -54,52 +54,9 @@ QLabel#subtitle {
     margin-bottom: 8px;
 }
 
-QCheckBox {
-    spacing: 6px;
-    color: #ffffff;
-}
-
-QCheckBox::indicator {
-    width: 16px;
-    height: 16px;
-    border-radius: 3px;
-    border: 1px solid #bdc3c7;
-    background-color: #ffffff;
-}
-
-QCheckBox::indicator:hover {
-    border-color: #3498db;
-}
-
-QCheckBox::indicator:checked {
-    background-color: #005e9c;
-    border-color: #005e9c;
-}
-
 QPushButton#normalButton {
     background: #292929;
     padding: 8px 12px;
-}
-
-QPushButton#confirmButton {
-    background-color: #2f8cca;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    color: white;
-    font-weight: 600;
-}
-
-QPushButton#confirmButton:hover {
-    background-color: #2978ad;
-}
-
-QPushButton#confirmButton:pressed {
-    background-color: #1f6692;
-}
-
-QPushButton#confirmButton:disabled {
-    background-color: #7f8c8d;
 }
 
 QPushButton#resetButton {

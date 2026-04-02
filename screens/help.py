@@ -11,9 +11,11 @@ from qtpy.QtWidgets import (
 )
 from qtpy.QtGui import QColor
 from qtpy.QtCore import QUrl
-from qtpy.QtWebEngineWidgets import QWebEngineView
+from PyQt6.QtWebEngineWidgets import QWebEngineView
 
 from config import CONFIG
+
+from app import RELATIVES
 
 SCREENCONFIG = Object(
     JSON(CONFIG.folders['configs']['screens']['help']).read()
@@ -43,6 +45,7 @@ class HelpScreen(QFlow.Screen):
                 os.path.abspath('screens/html/help-screen.html')
             )
         )
+        self.browser.page().loadFinished.connect(self.onPageLoaded)
         
         self.backButton = QPushButton(self.Config.texts.buttons.goBack)
         self.backButton.setObjectName('normalButton')
@@ -55,3 +58,10 @@ class HelpScreen(QFlow.Screen):
         self.screenlayout.addLayout(self.bottom)
 
         self.setLayout(self.screenlayout)
+
+    def onPageLoaded(self):
+        hotkey = RELATIVES.RelativesFile.get('keyboard')['key-combination']
+
+        self.browser.page().runJavaScript(
+            f'writeHotkeyCombination(`{hotkey}`);'
+        )

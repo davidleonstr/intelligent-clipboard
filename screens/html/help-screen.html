@@ -331,10 +331,7 @@
         <div class="section-title">Hotkey</div>
         <div class="hotkey-display">
             <div class="hotkey-desc">Press this combination at any time while the listener is enabled to trigger clipboard processing.</div>
-            <div class="keys">
-                <kbd>Ctrl</kbd>
-                <span class="key-sep">+</span>
-                <kbd>I</kbd>
+            <div class="keys" id="hotkey">
             </div>
         </div>
         <div class="note">
@@ -394,5 +391,34 @@
         <span>v1.0</span>
     </div>
 </div>
+<script>
+function renderHotkeyCombination(hotkey) {
+    const keys = hotkey.split('+');
+    const totalKeys = keys.length;
+
+    let fragment = document.createDocumentFragment();
+
+    keys.forEach((key, index) => {
+        const kbd = document.createElement('kbd');
+        kbd.textContent = key.toUpperCase();
+        fragment.appendChild(kbd);
+
+        if (index !== totalKeys - 1) {
+            const sep = document.createElement('span');
+            sep.className = 'key-sep';
+            sep.textContent = '+';
+            fragment.appendChild(sep);
+        }
+    });
+
+    return fragment;
+}
+
+function writeHotkeyCombination(hotkey) {
+    const container = document.getElementById('hotkey');
+    container.innerHTML = '';
+    container.appendChild(renderHotkeyCombination(hotkey));
+}
+</script>
 </body>
 </html>

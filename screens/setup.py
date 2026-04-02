@@ -68,12 +68,13 @@ class KeyForm(QWidget):
 
         container.addWidget(self.logo)
         container.addWidget(self.appName) 
+        container.addSpacing(5)
         container.addWidget(self.title)
 
         formLayout.addRow(self.aiLogo, self.inputKey)
 
         container.addLayout(formLayout)
-        container.addSpacing(20)
+        container.addSpacing(10)
         container.addWidget(self.btnConfirm)
 
         centerLayout.addStretch()

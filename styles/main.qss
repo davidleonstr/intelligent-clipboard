@@ -45,13 +45,11 @@ QLabel#title {
     font-size: 22px;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 12px;
 }
 
 QLabel#subtitle {
     font-size: 15px;
     color: #dcdcdc;
-    margin-bottom: 8px;
 }
 
 QPushButton#normalButton {

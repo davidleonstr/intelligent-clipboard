@@ -74,6 +74,7 @@ class HomeScreen(QFlow.Screen):
         self.content.setSpacing(20)
 
         self.bottom = QHBoxLayout()
+        self.bottom.setSpacing(20)
         self.bottom.setContentsMargins(30, 10, 30, 10)
 
         self.helpButton = QPushButton(self.Config.texts.buttons.help)
@@ -114,8 +115,8 @@ class HomeScreen(QFlow.Screen):
         self.content.addLayout(self.toggleServiceLayout)
 
         self.bottom.addWidget(self.deleteKeyButton)
-        self.bottom.addStretch(1) 
         self.bottom.addWidget(self.helpButton)
+        self.bottom.addStretch(1) 
 
         self.screenlayout.addLayout(self.nav)
         self.screenlayout.addLayout(self.content)

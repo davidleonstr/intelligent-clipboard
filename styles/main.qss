@@ -57,6 +57,7 @@ QLabel#subtitle {
 QPushButton#normalButton {
     background: #292929;
     padding: 8px 12px;
+    color: white;
 }
 
 QPushButton#resetButton {

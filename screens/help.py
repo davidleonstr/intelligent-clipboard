@@ -11,7 +11,7 @@ from qtpy.QtWidgets import (
 )
 from qtpy.QtGui import QColor
 from qtpy.QtCore import QUrl
-from PyQt6.QtWebEngineWidgets import QWebEngineView
+from qtpy.QtWebEngineWidgets import QWebEngineView
 
 from config import CONFIG
 

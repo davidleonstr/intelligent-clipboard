@@ -9,7 +9,7 @@
         "buttons": {
             "deleteKey": "DELETE API KEY",
             "copyKey": "COPY API KEY",
-            "help": "?"
+            "help": "HELP"
         },
         "labels": {
             "title": "IC HOME",

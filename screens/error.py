@@ -21,8 +21,8 @@ class ErrorScreen(QFlow.Screen):
         super().__init__(**self.args)
 
     def UI(self):
-        self.screenlayout = QVBoxLayout()
-        self.screenlayout.setContentsMargins(30, 20, 30, 10)
+        self.screenLayout = QVBoxLayout()
+        self.screenLayout.setContentsMargins(30, 20, 30, 10)
 
         self.browser = QWebEngineView()
         self.browser.setStyleSheet('background-color: #1e1e1e;')
@@ -33,6 +33,6 @@ class ErrorScreen(QFlow.Screen):
             )
         )
 
-        self.screenlayout.addWidget(self.browser)
+        self.screenLayout.addWidget(self.browser)
 
-        self.setLayout(self.screenlayout)
+        self.setLayout(self.screenLayout)

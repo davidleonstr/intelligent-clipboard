@@ -52,8 +52,8 @@ class HomeScreen(QFlow.Screen):
             QTimer.singleShot(0, load)
 
     def UI(self):        
-        self.screenlayout = QVBoxLayout()
-        self.screenlayout.setContentsMargins(30, 20, 30, 10)
+        self.screenLayout = QVBoxLayout()
+        self.screenLayout.setContentsMargins(30, 20, 30, 10)
 
         self.nav = QHBoxLayout()
 
@@ -113,12 +113,12 @@ class HomeScreen(QFlow.Screen):
         self.bottom.addWidget(self.helpButton)
         self.bottom.addStretch(1) 
 
-        self.screenlayout.addLayout(self.nav)
-        self.screenlayout.addLayout(self.content)
-        self.screenlayout.addStretch(1) 
-        self.screenlayout.addLayout(self.bottom)
+        self.screenLayout.addLayout(self.nav)
+        self.screenLayout.addLayout(self.content)
+        self.screenLayout.addStretch(1) 
+        self.screenLayout.addLayout(self.bottom)
 
-        self.setLayout(self.screenlayout)
+        self.setLayout(self.screenLayout)
 
         self.updateKey = self.Session.getItem('updateKey')
         self.showNotify = self.Session.getItem('showNotify')

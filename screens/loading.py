@@ -25,8 +25,8 @@ class LoadingScreen(QFlow.Screen):
     def UI(self):
         self.params = Params(self).get()
 
-        self.screenlayout = QVBoxLayout()
-        self.screenlayout.setContentsMargins(30, 20, 30, 10)
+        self.screenLayout = QVBoxLayout()
+        self.screenLayout.setContentsMargins(30, 20, 30, 10)
 
         self.loadingScreenChannel = QWebChannel()
         self.loadingScreenChannel.registerObject('bridge', self.params.get('bridge'))
@@ -41,6 +41,6 @@ class LoadingScreen(QFlow.Screen):
             )
         )
 
-        self.screenlayout.addWidget(self.browser)
+        self.screenLayout.addWidget(self.browser)
 
-        self.setLayout(self.screenlayout)
+        self.setLayout(self.screenLayout)

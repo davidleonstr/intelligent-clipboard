@@ -33,9 +33,9 @@ class HelpScreen(QFlow.Screen):
         super().__init__(**self.args)
 
     def UI(self):
-        self.screenlayout = QVBoxLayout()
-        self.screenlayout.setContentsMargins(30, 20, 30, 10)
-        self.screenlayout.setSpacing(20)
+        self.screenLayout = QVBoxLayout()
+        self.screenLayout.setContentsMargins(30, 20, 30, 10)
+        self.screenLayout.setSpacing(20)
         
         self.bottom = QHBoxLayout()
 
@@ -56,10 +56,10 @@ class HelpScreen(QFlow.Screen):
         self.bottom.addWidget(self.backButton)
         self.bottom.addStretch(1)
 
-        self.screenlayout.addWidget(self.browser)
-        self.screenlayout.addLayout(self.bottom)
+        self.screenLayout.addWidget(self.browser)
+        self.screenLayout.addLayout(self.bottom)
 
-        self.setLayout(self.screenlayout)
+        self.setLayout(self.screenLayout)
 
     def onPageLoaded(self):
         hotkey = RELATIVES.RelativesFile.get('keyboard')['key-combination']

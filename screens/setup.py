@@ -68,14 +68,12 @@ class KeyForm(QWidget):
 
         container.addWidget(self.logo)
         container.addWidget(self.appName) 
-        container.addSpacing(10)
         container.addWidget(self.title)
-        container.addSpacing(10)
 
         formLayout.addRow(self.aiLogo, self.inputKey)
 
         container.addLayout(formLayout)
-        container.addSpacing(10)
+        container.addSpacing(20)
         container.addWidget(self.btnConfirm)
 
         centerLayout.addStretch()
@@ -108,11 +106,11 @@ class SetupScreen(QFlow.Screen):
         super().__init__(**self.args)
 
     def UI(self):
-        self.screenlayout = QVBoxLayout()
-        self.screenlayout.setContentsMargins(30, 20, 30, 10)
+        self.screenLayout = QVBoxLayout()
+        self.screenLayout.setContentsMargins(30, 20, 30, 10)
         self.keyForm = KeyForm(parent=self)
-        self.screenlayout.addWidget(self.keyForm)
-        self.setLayout(self.screenlayout)
+        self.screenLayout.addWidget(self.keyForm)
+        self.setLayout(self.screenLayout)
 
         self.updateKey = self.Session.getItem('updateKey')
         self.showNotify = self.Session.getItem('showNotify')

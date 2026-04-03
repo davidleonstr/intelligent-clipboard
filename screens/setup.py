@@ -11,7 +11,7 @@ from helpers.builders import Object
 from helpers.files import JSON
 
 from qtpy.QtWidgets import (
-    QVBoxLayout, QLabel, QLineEdit, QPushButton, QHBoxLayout, QFormLayout, QWidget
+    QVBoxLayout, QLabel, QLineEdit, QPushButton, QHBoxLayout, QWidget
 )
 from qtpy.QtCore import Qt, QTimer
 
@@ -24,12 +24,11 @@ class KeyForm(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
 
-        mainLayout = QVBoxLayout()
-        centerLayout = QHBoxLayout()
+        self.mainLayout = QVBoxLayout()
+        self.centerLayout = QHBoxLayout()
+        self.keyLayout = QHBoxLayout()
 
-        formLayout = QFormLayout()
-        formLayout.setFormAlignment(Qt.AlignmentFlag.AlignCenter)
-        formLayout.setLabelAlignment(Qt.AlignmentFlag.AlignLeft)
+        self.keyLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.title = QLabel(
             self.Config.texts.labels.title
@@ -38,8 +37,8 @@ class KeyForm(QWidget):
         self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.logo = QLabel()
-        logoPixmap = Icon(self.Config.icons.appIcon, 120, 120)
-        self.logo.setPixmap(logoPixmap)
+        self.logoPixmap = Icon(self.Config.icons.appIcon, 120, 120)
+        self.logo.setPixmap(self.logoPixmap)
         self.logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.appName = QLabel(self.Config.texts.labels.appName)
@@ -52,40 +51,40 @@ class KeyForm(QWidget):
         self.inputKey.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.aiLogo = QLabel()
-        aiPixmap = Icon(self.Config.icons.aiIcon, 31, 31)
-        self.aiLogo.setPixmap(aiPixmap)
+        self.aiPixmap = Icon(self.Config.icons.aiIcon, 31, 31)
+        self.aiLogo.setPixmap(self.aiPixmap)
         self.aiLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.btnConfirm = QPushButton(self.Config.texts.buttons.confirmKey)
         self.btnConfirm.setObjectName('resetButton')
         self.btnConfirm.clicked.connect(self.sendKey)
 
-        container = QVBoxLayout()
-        container.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.content = QVBoxLayout()
+        self.content.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        container = QVBoxLayout()
-        container.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.content = QVBoxLayout()
+        self.content.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        container.addWidget(self.logo)
-        container.addWidget(self.appName) 
-        container.addSpacing(5)
-        container.addWidget(self.title)
+        self.keyLayout.addWidget(self.aiLogo)
+        self.keyLayout.addWidget(self.inputKey)
 
-        formLayout.addRow(self.aiLogo, self.inputKey)
+        self.content.addWidget(self.logo)
+        self.content.addWidget(self.appName) 
+        self.content.addWidget(self.title)
+        self.content.addSpacing(5)
+        self.content.addLayout(self.keyLayout)
+        self.content.addSpacing(5)
+        self.content.addWidget(self.btnConfirm)
 
-        container.addLayout(formLayout)
-        container.addSpacing(10)
-        container.addWidget(self.btnConfirm)
+        self.centerLayout.addStretch()
+        self.centerLayout.addLayout(self.content)
+        self.centerLayout.addStretch()
 
-        centerLayout.addStretch()
-        centerLayout.addLayout(container)
-        centerLayout.addStretch()
+        self.mainLayout.addStretch()
+        self.mainLayout.addLayout(self.centerLayout)
+        self.mainLayout.addStretch()
 
-        mainLayout.addStretch()
-        mainLayout.addLayout(centerLayout)
-        mainLayout.addStretch()
-
-        self.setLayout(mainLayout)
+        self.setLayout(self.mainLayout)
     
     def sendKey(self) -> None:
         parent: SetupScreen = self.parent()

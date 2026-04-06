@@ -70,10 +70,18 @@ class KeyForm(QWidget):
 
         self.content.addWidget(self.logo)
         self.content.addWidget(self.appName) 
+        self.content.addSpacing(15)
         self.content.addWidget(self.title)
         self.content.addSpacing(5)
         self.content.addLayout(self.keyLayout)
-        self.content.addSpacing(5)
+
+        self.content.addSpacing(9)
+        '''
+        Why 9 instead of 10 pixels for the space between the input field and the button?
+        Because the input field has no margin (-1 px).
+        Therefore, I had to subtract 1 pixel from the margin to balance both widgets.
+        '''
+
         self.content.addWidget(self.btnConfirm)
 
         self.centerLayout.addStretch()

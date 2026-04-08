@@ -23,21 +23,21 @@ from qtpy.QtGui import QIcon
 from screens import SetupScreen, HomeScreen, ErrorScreen, HelpScreen, LoadingScreen
 from templates import DefaultTemplate
 
-APPCONFIG = JSON(CONFIG.folders['configs']['windows']['main']).read()
+APPCONFIG = JSON(CONFIG.folders['configs']['files']['windows']['main']).read()
 
 WINDOWCONFIG = JSON(
     CONFIG.folders['locales']['languages'][RELATIVES.LANGUAGE]['windows']['main']
 ).read()
 
 @QFlow.app(
-    title=WINDOWCONFIG.get('texts')['title'], 
-    geometry=APPCONFIG.get('geometry'), 
-    icon=lambda: QIcon(APPCONFIG.get('icon-path')),
+    title=WINDOWCONFIG['texts']['title'], 
+    geometry=APPCONFIG['geometry'], 
+    icon=lambda:QIcon(APPCONFIG['icon-path']),
     customTemplate=DefaultTemplate,
     frameless=True
 )
 @style(
-    style=CONFIG.folders.get('styles')[APPCONFIG['style']], 
+    style=CONFIG.folders['styles']['files']['normals'][APPCONFIG['style']], 
     path=True
 )
 @session()
@@ -111,9 +111,12 @@ class App(QFlow.App):
 
     def showNotify(self, message: str, type: str):
         customTypes = {
-            'success': Icon(CONFIG.folders['icons']['notifications']['success-icon'], 25, 25),
-            'info': Icon(CONFIG.folders['icons']['notifications']['info-icon'], 25, 25),
-            'error': Icon(CONFIG.folders['icons']['notifications']['error-icon'], 25, 25)
+            'success': Icon(CONFIG.folders['icons']['files']\
+                ['notifications']['success-icon'], 25, 25),
+            'info': Icon(CONFIG.folders['icons']['files']\
+                ['notifications']['info-icon'], 25, 25),
+            'error': Icon(CONFIG.folders['icons']['files']\
+                ['notifications']['error-icon'], 25, 25)
         }
 
         notify = Notify(

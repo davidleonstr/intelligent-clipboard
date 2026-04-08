@@ -1,6 +1,7 @@
 from helpers.files import JSON
 from helpers.builders import Folder
 import os
+import copy
 
 class Config:
     def __init__(self):
@@ -10,61 +11,14 @@ class Config:
         self.CONFIG = self.ConfigFile.read()
         'Global configuration dict.'
 
-        self.folders = {
-            'styles': Config.getFolderFiles(
-                Folder(self.CONFIG['app']['folders']['styles']).listFiles()
-            ),
-            'configs': {
-                'windows': Config.getFolderFiles(
-                    Folder(
-                        self.getConfigsPath(
-                            self.CONFIG['app']['folders']['configs']['windows']
-                        )
-                    ).listFiles()
-                ),
-                'screens': Config.getFolderFiles(
-                    Folder(
-                        self.getConfigsPath(
-                            self.CONFIG['app']['folders']['configs']['screens']
-                        )
-                    ).listFiles()
-                )
-            },
-            'locales': {
-                'path': self.CONFIG['app']['folders']['locales']['path'],
-                'base': {
-                    'windows': self.CONFIG['app']['folders']['locales']['base']['windows'],
-                    'screens': self.CONFIG['app']['folders']['locales']['base']['screens']
-                },
-                'languages': {}
-            },
-            'icons': {
-                'notifications': Config.getFolderFiles(
-                    Folder(
-                        self.getIconsPath(
-                            self.CONFIG['app']['folders']['icons']['notifications']
-                        )
-                    ).listFiles()
-                ),
-                'normals': Config.getFolderFiles(
-                    Folder(
-                        self.getIconsPath(
-                            self.CONFIG['app']['folders']['icons']['normals']
-                        )
-                    ).listFiles()
-                ),
-                'labels': Config.getFolderFiles(
-                    Folder(
-                        self.getIconsPath(
-                            self.CONFIG['app']['folders']['icons']['labels']
-                        )
-                    ).listFiles()
-                )
-            }
-        }
+        self.folders = copy.deepcopy(self.CONFIG['app']['folders'])
         'Dict that contains global styles and configurations of windows and screens.'
 
+        self.loadNormalFolder('configs')
+        self.loadNormalFolder('icons')
+        self.loadNormalFolder('styles')
         self.loadLocales()
+        'Load everything.'
 
     def loadLocales(self) -> None:
         languages = Folder(self.folders['locales']['path']).listFolders()
@@ -83,6 +37,21 @@ class Config:
                 )
 
                 self.folders['locales']['languages'][language][key] = items
+
+    def loadNormalFolder(self, name: str) -> None:
+        bases: dict = self.folders[name]['base']
+        path: str = self.folders[name]['path']
+
+        for key, value in bases.items():
+            self.folders[name]['files'][key] = {}
+
+            items = Config.getFolderFiles(
+                Folder(
+                    f'{path}{value}'
+                ).listFiles()
+            )
+
+            self.folders[name]['files'][key] = items
     
     def getFolderFiles(items: list) -> dict:
         files = {}
@@ -94,12 +63,6 @@ class Config:
             files[name] = item
 
         return files
-
-    def getIconsPath(self, folder: str) -> str:
-        return self.CONFIG['app']['folders']['icons']['path'] + folder
-
-    def getConfigsPath(self, folder: str) -> str:
-        return self.CONFIG['app']['folders']['configs']['path'] + folder
 
 CONFIG = Config()
 'Application Inherent Configuration.'

@@ -39,7 +39,7 @@ class KeyForm(QWidget):
         self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.logo = QLabel()
-        self.logoPixmap = Icon(CONFIG.folders['icons']['normals']['app-icon'], 120, 120)
+        self.logoPixmap = Icon(CONFIG.folders['icons']['files']['normals']['app-icon'], 120, 120)
         self.logo.setPixmap(self.logoPixmap)
         self.logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -53,7 +53,7 @@ class KeyForm(QWidget):
         self.inputKey.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.aiLogo = QLabel()
-        self.aiPixmap = Icon(CONFIG.folders['icons']['labels']['ai-icon'], 31, 31)
+        self.aiPixmap = Icon(CONFIG.folders['icons']['files']['labels']['ai-icon'], 31, 31)
         self.aiLogo.setPixmap(self.aiPixmap)
         self.aiLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -76,13 +76,7 @@ class KeyForm(QWidget):
         self.content.addWidget(self.title)
         self.content.addSpacing(5)
         self.content.addLayout(self.keyLayout)
-
         self.content.addSpacing(9)
-        '''
-        Why 9 instead of 10 pixels for the space between the input field and the button?
-        Because the input field has no margin (-1 px).
-        Therefore, I had to subtract 1 pixel from the margin to balance both widgets.
-        '''
 
         self.content.addWidget(self.btnConfirm)
 

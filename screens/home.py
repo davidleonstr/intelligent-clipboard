@@ -61,7 +61,7 @@ class HomeScreen(QFlow.Screen):
         self.nav = QHBoxLayout()
 
         self.logo = QLabel()
-        logoPixmap = Icon(CONFIG.folders['icons']['normals']['app-icon'], 42, 42)
+        logoPixmap = Icon(CONFIG.folders['icons']['files']['normals']['app-icon'], 42, 42)
         self.logo.setPixmap(logoPixmap)
 
         self.title = QLabel(self.Config.texts.labels.title)

@@ -1,14 +1,24 @@
 {
     "app": {
         "folders": {
-            "styles": "styles",
+            "styles": {
+                "path": "styles/",
+                "files": {},
+                "base": {
+                    "normals": "/"
+                }
+            },
             "configs": {
                 "path": "config/",
-                "windows": "/windows",
-                "screens": "/screens"
+                "files": {},
+                "base": {
+                    "windows": "/windows",
+                    "screens": "/screens"
+                }
             },
             "locales": {
                 "path": "locales/",
+                "languages": {},
                 "base": {
                     "windows": "/windows",
                     "screens": "/screens"
@@ -16,9 +26,13 @@
             },
             "icons": {
                 "path": "resources/icons/",
-                "notifications": "/notifications",
-                "normals": "/",
-                "labels": "/labels"
+                "files": {},
+                "base": {
+                    "notifications": "/notifications",
+                    "normals": "/",
+                    "labels": "/labels"
+                }
+
             }
         }
     }

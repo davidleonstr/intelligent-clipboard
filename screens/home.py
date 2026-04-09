@@ -86,6 +86,7 @@ class HomeScreen(QFlow.Screen):
         self.deleteKeyButton.clicked.connect(self.deleteKey)
 
         self.modelsCombo = QComboBox()
+        self.modelsCombo.setPlaceholderText(self.Config.texts.combos.selectModel)
 
         self.selectModelLayout = QVBoxLayout()
         self.toggleServiceLayout = QVBoxLayout()

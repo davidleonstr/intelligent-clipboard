@@ -15,6 +15,9 @@
             "title": "IC HOME",
             "selectModel": "AI Model:",
             "enableService": "Service Status:"
+        },
+        "combos": {
+            "selectModel": "No Models Available"
         }
     }
 }

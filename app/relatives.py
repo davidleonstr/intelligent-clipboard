@@ -9,13 +9,13 @@ class Relatives:
         self.prompt = open(self.RelativesFile.get('files')['prompt-file'], encoding='utf-8').read()
         'AI Prompt.'
 
-        self.SCIPHER = self.RelativesFile.get('auth')['s-chiper']
+        self.SEEDCIPHER = self.RelativesFile.get('auth')['s-chiper']
         'Seed IC Key Cipher.'
 
         self.LANGUAGE = self.RelativesFile.get('gui')['language']
         'Application language.'
 
-        self.CIPHER: Cipher = Cipher(self.SCIPHER)
+        self.CIPHER: Cipher = Cipher(self.SEEDCIPHER)
         'IC Key Cipher.'
 
 RELATIVES = Relatives()

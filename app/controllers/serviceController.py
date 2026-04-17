@@ -13,7 +13,7 @@ class ServiceController:
     ):
         self.client = OpenAI(
             api_key=apiKey,
-            base_url=RELATIVES.RelativesFile.get('ic-openai-wrapper')
+            base_url=RELATIVES.OPENAIWRAPPER
         )
 
         self.modelName = modelName

@@ -5,7 +5,7 @@ import pyperclip
 class Combinations:
     @staticmethod
     async def interpret(key: str, modelName: str):
-        prompt = RELATIVES.prompt
+        prompt = RELATIVES.PROMPT
         
         controller = ServiceController(
             apiKey=key, 

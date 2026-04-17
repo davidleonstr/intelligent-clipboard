@@ -21,7 +21,13 @@ from app import Combinations, RELATIVES
 
 SCREENCONFIG = Object(
     JSON(
-        CONFIG.folders['locales']['languages'][RELATIVES.LANGUAGE]['screens']['home']
+        CONFIG.tree(
+            'locales',
+            'languages',
+            RELATIVES.LANGUAGE,
+            'screens',
+            'home'
+        )
     ).read()
 ).obj
 
@@ -61,7 +67,7 @@ class HomeScreen(QFlow.Screen):
         self.nav = QHBoxLayout()
 
         self.logo = QLabel()
-        logoPixmap = Icon(CONFIG.folders['icons']['files']['normals']['app-icon'], 42, 42)
+        logoPixmap = Icon(CONFIG.tree('icons', 'files', 'normals', 'app-icon'), 42, 42)
         self.logo.setPixmap(logoPixmap)
 
         self.title = QLabel(self.Config.texts.labels.title)
@@ -124,7 +130,6 @@ class HomeScreen(QFlow.Screen):
 
         self.setLayout(self.screenLayout)
 
-        self.updateKey = self.Session.getItem('updateKey')
         self.showNotify = self.Session.getItem('showNotify')
         
         self.showNotify(
@@ -153,7 +158,7 @@ class HomeScreen(QFlow.Screen):
 
             threading.Thread(target=task, daemon=True).start()
 
-        keyboard.add_hotkey(RELATIVES.RelativesFile.get('keyboard')['key-combination'], handleHotkey)
+        keyboard.add_hotkey(RELATIVES.KEYCOMBINATION, handleHotkey)
 
     def copyKey(self):
         clipboard = QApplication.clipboard()
@@ -165,7 +170,7 @@ class HomeScreen(QFlow.Screen):
         )
     
     def deleteKey(self):
-        self.updateKey(None)
+        RELATIVES.updateKey(None)
         
         self.setup()
 

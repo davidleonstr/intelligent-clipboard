@@ -1,6 +1,6 @@
 {
     "style": "main",
-    "icon-path": "resources/icons/app-icon.svg",
+    "icon": "resources/icons/app-icon.svg",
     "geometry": [
         250, 
         105, 

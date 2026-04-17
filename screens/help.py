@@ -18,7 +18,13 @@ from app import RELATIVES
 
 SCREENCONFIG = Object(
     JSON(
-        CONFIG.folders['locales']['languages'][RELATIVES.LANGUAGE]['screens']['help']
+        CONFIG.tree(
+            'locales',
+            'languages',
+            RELATIVES.LANGUAGE,
+            'screens',
+            'help'
+        )
     ).read()
 ).obj
 
@@ -66,7 +72,7 @@ class HelpScreen(QFlow.Screen):
         self.setLayout(self.screenLayout)
 
     def onPageLoaded(self):
-        hotkey = RELATIVES.RelativesFile.get('keyboard')['key-combination']
+        hotkey = RELATIVES.KEYCOMBINATION
 
         self.browser.page().runJavaScript(
             f'writeHotkeyCombination(`{hotkey}`);'

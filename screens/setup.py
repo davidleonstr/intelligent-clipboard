@@ -17,7 +17,13 @@ from qtpy.QtCore import Qt, QTimer
 
 SCREENCONFIG = Object(
     JSON(
-        CONFIG.folders['locales']['languages'][RELATIVES.LANGUAGE]['screens']['setup']
+        CONFIG.tree(
+            'locales',
+            'languages',
+            RELATIVES.LANGUAGE,
+            'screens',
+            'setup'
+        )
     ).read()
 ).obj
 
@@ -39,7 +45,7 @@ class KeyForm(QWidget):
         self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.logo = QLabel()
-        self.logoPixmap = Icon(CONFIG.folders['icons']['files']['normals']['app-icon'], 120, 120)
+        self.logoPixmap = Icon(CONFIG.tree('icons', 'files', 'normals', 'app-icon'), 120, 120)
         self.logo.setPixmap(self.logoPixmap)
         self.logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -53,7 +59,7 @@ class KeyForm(QWidget):
         self.inputKey.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.aiLogo = QLabel()
-        self.aiPixmap = Icon(CONFIG.folders['icons']['files']['labels']['ai-icon'], 31, 31)
+        self.aiPixmap = Icon(CONFIG.tree('icons', 'files', 'labels', 'ai-icon'), 31, 31)
         self.aiLogo.setPixmap(self.aiPixmap)
         self.aiLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -116,11 +122,10 @@ class SetupScreen(QFlow.Screen):
         self.screenLayout.addWidget(self.keyForm)
         self.setLayout(self.screenLayout)
 
-        self.updateKey = self.Session.getItem('updateKey')
         self.showNotify = self.Session.getItem('showNotify')
 
     def validateKey(self, key: str) -> bool:
-        pattern = RELATIVES.RelativesFile.get('auth')['ic-key-pattern']
+        pattern = RELATIVES.KEYPATTERN
         return bool(re.match(pattern, key))
     
     def processKey(self, key: str, button: QPushButton, input: QLineEdit):
@@ -137,7 +142,7 @@ class SetupScreen(QFlow.Screen):
         )
 
     def handleValidKey(self, key: str, button: QPushButton, input: QLineEdit):
-        self.updateKey(key)
+        RELATIVES.updateKey(key)
 
         button.setDisabled(True)
 

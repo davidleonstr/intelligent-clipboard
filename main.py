@@ -3,7 +3,6 @@ import os
 os.environ['QT_API'] = 'pyqt6'
 
 import sys
-import base64
 
 import QFlow
 from QFlow.components import Notify
@@ -23,21 +22,45 @@ from qtpy.QtGui import QIcon
 from screens import SetupScreen, HomeScreen, ErrorScreen, HelpScreen, LoadingScreen
 from templates import DefaultTemplate
 
-APPCONFIG = JSON(CONFIG.folders['configs']['files']['windows']['main']).read()
+from helpers.builders import Object
 
-WINDOWCONFIG = JSON(
-    CONFIG.folders['locales']['languages'][RELATIVES.LANGUAGE]['windows']['main']
-).read()
+APPCONFIG = Object(
+    JSON(
+        CONFIG.tree(
+            'configs',
+            'files',
+            'windows',
+            'main'
+        )
+    ).read()
+).obj
+
+WINDOWCONFIG = Object(
+    JSON(
+        CONFIG.tree(
+            'locales', 
+            'languages', 
+            RELATIVES.LANGUAGE,
+            'windows',
+            'main'
+        )
+    ).read()
+).obj
 
 @QFlow.app(
-    title=WINDOWCONFIG['texts']['title'], 
-    geometry=APPCONFIG['geometry'], 
-    icon=lambda:QIcon(APPCONFIG['icon-path']),
+    title=WINDOWCONFIG.texts.title, 
+    geometry=APPCONFIG.geometry, 
+    icon=lambda:QIcon(APPCONFIG.icon),
     customTemplate=DefaultTemplate,
     frameless=True
 )
 @style(
-    style=CONFIG.folders['styles']['files']['normals'][APPCONFIG['style']], 
+    style=CONFIG.tree(
+        'styles',
+        'files',
+        'normals',
+        APPCONFIG.style
+    ), 
     path=True
 )
 @session()
@@ -62,14 +85,11 @@ class App(QFlow.App):
         initialScreen = self.setupScreen.name
         args = {}
 
-        self.key = RELATIVES.RelativesFile.get(
-            'ic-key', 
-            False
-        )
+        self.key = RELATIVES.ICKEY
 
         if self.key:
             args = {
-                'key': self.decryptKey(self.key)
+                'key': RELATIVES.decryptKey(self.key)
             }
 
             initialScreen = self.homeScreen.name
@@ -84,39 +104,22 @@ class App(QFlow.App):
             'bridge': self.bridge
         })
 
-        self.Session.setItem('updateKey', self.updateKey)
         self.Session.setItem('showNotify', self.showNotify)
-    
-    def updateKey(self, key: str):
-        if not key:
-            RELATIVES.RelativesFile.update('ic-key', None) 
-            return
-            
-        RELATIVES.RelativesFile.update(
-            'ic-key', 
-            self.encryptKey(key)
-        )
-    
-    def encryptKey(self, key: str) -> str:
-        return base64.b64encode(
-            RELATIVES.CIPHER.encrypt(key)
-        ).decode('utf-8')
-
-    def decryptKey(self, key: str) -> str:
-        return RELATIVES.CIPHER.decrypt(
-        base64.b64decode(
-            key
-            )
-        )
 
     def showNotify(self, message: str, type: str):
         customTypes = {
-            'success': Icon(CONFIG.folders['icons']['files']\
-                ['notifications']['success-icon'], 25, 25),
-            'info': Icon(CONFIG.folders['icons']['files']\
-                ['notifications']['info-icon'], 25, 25),
-            'error': Icon(CONFIG.folders['icons']['files']\
-                ['notifications']['error-icon'], 25, 25)
+            'success': Icon(
+                CONFIG.tree('icons', 'files', 'notifications', 'success-icon'), 
+                25, 25
+            ),
+            'info': Icon(
+                CONFIG.tree('icons', 'files', 'notifications', 'info-icon'), 
+                25, 25
+            ),
+            'error': Icon(
+                CONFIG.tree('icons', 'files', 'notifications', 'error-icon'), 
+                25, 25
+            )
         }
 
         notify = Notify(

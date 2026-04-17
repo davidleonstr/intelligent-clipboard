@@ -1,14 +1,13 @@
-from helpers.files import JSON
+from helpers.files import JSON, listNames
 from helpers.builders import Folder
-import os
 import copy
 
 class Config:
     def __init__(self):
-        self.ConfigFile= JSON(r'config/config.json')
+        self.file = JSON(r'config/config.json')
         'Global configuration file.'
 
-        self.CONFIG = self.ConfigFile.read()
+        self.CONFIG = self.file.read()
         'Global configuration dict.'
 
         self.folders = copy.deepcopy(self.CONFIG['app']['folders'])
@@ -19,6 +18,15 @@ class Config:
         self.loadNormalFolder('styles')
         self.loadLocales()
         'Load everything.'
+    
+    def tree(self, *args):
+        'Function to go into folders.'
+        cursor = self.folders
+
+        for path in args:
+            cursor = cursor[path]
+   
+        return cursor
 
     def loadLocales(self) -> None:
         languages = Folder(self.folders['locales']['path']).listFolders()
@@ -30,7 +38,7 @@ class Config:
             self.folders['locales']['languages'][language] = {}
             
             for key, value in bases.items():
-                items = Config.getFolderFiles(
+                items = listNames(
                     Folder(
                         f'{path}{language}{value}'
                     ).listFiles()
@@ -45,24 +53,13 @@ class Config:
         for key, value in bases.items():
             self.folders[name]['files'][key] = {}
 
-            items = Config.getFolderFiles(
+            items = listNames(
                 Folder(
                     f'{path}{value}'
                 ).listFiles()
             )
 
             self.folders[name]['files'][key] = items
-    
-    def getFolderFiles(items: list) -> dict:
-        files = {}
-
-        for item in items:
-            item: str
-            name, _ = os.path.splitext(os.path.basename(item))
-
-            files[name] = item
-
-        return files
 
 CONFIG = Config()
 'Application Inherent Configuration.'

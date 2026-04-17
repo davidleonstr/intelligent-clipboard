@@ -16,7 +16,13 @@ from app import RELATIVES
 
 SCREENCONFIG = Object(
     JSON(
-        CONFIG.folders['locales']['languages'][RELATIVES.LANGUAGE]['screens']['template']
+        CONFIG.tree(
+            'locales',
+            'languages',
+            RELATIVES.LANGUAGE,
+            'screens',
+            'template'
+        )
     ).read()
 ).obj
 
@@ -51,7 +57,7 @@ class DefaultTemplate(Template):
         self.setLayout(self.mainLayout)
 
         self.trayIcon = QSystemTrayIcon(self)
-        self.trayIcon.setIcon(QIcon(CONFIG.folders['icons']['files']['normals']['app-icon']))
+        self.trayIcon.setIcon(QIcon(CONFIG.tree('icons', 'files', 'normals', 'app-icon')))
 
         trayMenu = QMenu()
 

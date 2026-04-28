@@ -14,7 +14,6 @@ from helpers.builders import Object
 from pym import Render
 
 from config import CONFIG
-
 from app import RELATIVES
 
 SCREENCONFIG = Object(

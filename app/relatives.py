@@ -11,7 +11,7 @@ class Relatives:
         self.PROMPT = open(self.file.get('files')['prompt-file'], encoding='utf-8').read()
         'AI Prompt.'
 
-        self.SEEDCIPHER = self.file.get('auth')['s-chiper']
+        self.SEEDCIPHER = self.file.get('auth')['seed-chiper']
         'Seed IC Key Cipher.'
 
         self.KEYPATTERN = self.file.get('auth')['ic-key-pattern']

@@ -9,7 +9,7 @@
     },
     "auth": {
         "ic-key-pattern": "^[A-Za-z0-9-]+$",
-        "s-chiper": "IC-ZYNC"
+        "seed-chiper": "IC-ZYNC"
     },
     "keyboard": {
         "key-combination": "ctrl+i"

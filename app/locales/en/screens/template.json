@@ -1,0 +1,12 @@
+{
+    "menu": {
+        "actions": {
+            "open": "Open",
+            "close": "Close"
+        },
+        "messages": {
+            "title": "Minimized",
+            "information": "The application continues running in the system tray!"
+        }
+    }
+}

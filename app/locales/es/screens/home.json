@@ -1,0 +1,22 @@
+{
+    "notifications": {
+        "welcome": "Bienvenido al inicio",
+        "keyDeleted": "Clave de API eliminada",
+        "keyCopied": "Clave de API copiada",
+        "noModels": "No hay modelos disponibles"
+    },
+    "buttons": {
+        "deleteKey": "ELIMINAR CLAVE DE API",
+        "copyKey": "COPIAR CLAVE DE API",
+        "help": "AYUDA",
+        "settings": "AJUSTES"
+    },
+    "labels": {
+        "title": "INICIO",
+        "selectModel": "Modelo de IA:",
+        "enableService": "Estado del servicio:"
+    },
+    "combos": {
+        "selectModel": "No hay modelos disponibles"
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "labels": {
+        "title": "SETTINGS",
+        "selectLanguage": "Language:",
+        "advancedSettings": "Advanced",
+        "openaiWrapper": "AI API endpoint:",
+        "keyPattern": "API key pattern:",
+        "seedCipher": "Seed cipher:"
+    },
+    "buttons": {
+        "save": "SAVE",
+        "manageHotkeys": "MANAGE HOTKEYS",
+        "goBack": "GO BACK",
+        "openAdvancedSettings": "OPEN"
+    },
+    "inputs": {
+        "openaiWrapper": "Ej: https://api.openai.com/v1/",
+        "keyPattern": "Ej: ^[A-Za-z0-9-]+$",
+        "seedCipher": "Ej: secret-seed"
+    },
+    "notifications": {
+        "languageSaved": "Settings saved"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "style": {
+        "sheet": "app.qss",
+        "backgroundColor": "#1e1e1e"
+    },
+    "icon": "app-icon.svg",
+    "geometry": [
+        250, 
+        105, 
+        900, 
+        500
+    ]
+}

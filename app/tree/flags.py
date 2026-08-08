@@ -1,0 +1,2 @@
+UNFROZEN = 'unf'
+FROZEN = 'f'

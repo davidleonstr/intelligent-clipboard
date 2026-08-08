@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Help Screen</title>
+    <style>
+        :root {
+            --bg: #1e1e1e;
+            --surface: #272727;
+            --border: #333333;
+            --accent: #4ade80;
+            --accent-dim: rgba(74, 222, 128, 0.08);
+            --accent-border: rgba(74, 222, 128, 0.25);
+            --text: #e8e8e8;
+            --text-muted: rgba(232, 232, 232, 0.5);
+            --text-faint: rgba(232, 232, 232, 0.25);
+            --mono: 'Segoe UI', system-ui, sans-serif;
+            --sans: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            font-weight: 300;
+            overflow-x: hidden;
+            cursor: default;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        #page {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 32px 80px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 48px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--accent);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        h1 {
+            font-size: 1.35rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: var(--text);
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.07s; }
+        .section:nth-child(3) { animation-delay: 0.14s; }
+        .section:nth-child(4) { animation-delay: 0.21s; }
+        .section:nth-child(5) { animation-delay: 0.28s; }
+
+        .section-title {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--accent);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 32px 1fr;
+            gap: 16px;
+            align-items: start;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-num {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--accent);
+            padding-top: 2px;
+            opacity: 0.7;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 22px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .hotkey-display {
+            background: var(--accent-dim);
+            border: 1px solid var(--accent-border);
+            border-radius: 8px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .hotkey-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            max-width: 340px;
+        }
+
+        .keys {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        kbd {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent);
+            background: var(--bg);
+            border: 1px solid var(--accent-border);
+            border-radius: 5px;
+            padding: 5px 10px;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        .key-sep {
+            font-size: 11px;
+            color: var(--text-faint);
+            font-family: var(--mono);
+        }
+
+        .note {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: rgba(251, 191, 36, 0.05);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 8px;
+            padding: 16px 18px;
+            margin-top: 12px;
+        }
+
+        .note-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .note-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke: rgba(251, 191, 36, 0.8);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .note-text {
+            font-size: 12.5px;
+            color: rgba(232, 232, 232, 0.55);
+            line-height: 1.6;
+        }
+
+        .footer {
+            margin-top: 56px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-faint);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="page">
+
+        <div class="header">
+            <div class="header-text">
+                <div class="header-label">IC — Intelligent Clipboard</div>
+                <h1><!= i18n.t('screens.help.header.title') !></h1>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title"><!= i18n.t('screens.help.sections.gettingStarted') !></div>
+            <div class="steps">
+
+                <div class="step">
+                    <span class="step-num">01</span>
+                    <div class="step-body">
+                        <div class="step-title"><!= i18n.t('screens.help.steps.stepOne.title') !></div>
+                        <div class="step-desc"><!= i18n.t('screens.help.steps.stepOne.description') !></div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-num">02</span>
+                    <div class="step-body">
+                        <div class="step-title"><!= i18n.t('screens.help.steps.stepTwo.title') !></div>
+                        <div class="step-desc"><!= i18n.t('screens.help.steps.stepTwo.description') !></div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-num">03</span>
+                    <div class="step-body">
+                        <div class="step-title"><!= i18n.t('screens.help.steps.stepThree.title') !></div>
+                        <div class="step-desc"><!= i18n.t('screens.help.steps.stepThree.description') !></div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-num">04</span>
+                    <div class="step-body">
+                        <div class="step-title"><!= i18n.t('screens.help.steps.stepFour.title') !></div>
+                        <div class="step-desc"><!= i18n.t('screens.help.steps.stepFour.description') !></div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-num">05</span>
+                    <div class="step-body">
+                        <div class="step-title"><!= i18n.t('screens.help.steps.stepFive.title') !></div>
+                        <div class="step-desc"><!= i18n.t('screens.help.steps.stepFive.description') !></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title"><!= i18n.t('screens.help.sections.hotkey') !></div>
+            <div class="hotkey-display">
+                <div class="hotkey-desc"><!= i18n.t('screens.help.hotkey.description') !></div>
+                <div class="keys" id="hotkey"></div>
+            </div>
+            <div class="note">
+                <div class="note-icon">
+                </div>
+                <div class="note-text"><!= i18n.t('screens.help.hotkey.note') !></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title"><!= i18n.t('screens.help.sections.homeReference') !></div>
+
+            <div class="card">
+                <div class="card-title"><!= i18n.t('screens.help.home.modelSelector.title') !></div>
+                <div class="card-desc"><!= i18n.t('screens.help.home.modelSelector.description') !></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><!= i18n.t('screens.help.home.listenerToggle.title') !></div>
+                <div class="card-desc"><!= i18n.t('screens.help.home.listenerToggle.description') !></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><!= i18n.t('screens.help.home.deleteKey.title') !></div>
+                <div class="card-desc"><!= i18n.t('screens.help.home.deleteKey.description') !></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><!= i18n.t('screens.help.home.settings.title') !></div>
+                <div class="card-desc"><!= i18n.t('screens.help.home.settings.description') !></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title"><!= i18n.t('screens.help.sections.howItWorks') !></div>
+
+            <div class="card">
+                <div class="card-desc"><!= i18n.t('screens.help.howItWorks.description') !></div>
+            </div>
+
+            <div class="note">
+                <div class="note-icon">
+                </div>
+                <div class="note-text"><!= i18n.t('screens.help.howItWorks.note') !></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title"><!= i18n.t('screens.help.sections.configuration') !></div>
+
+            <div class="card">
+                <div class="card-title"><!= i18n.t('screens.help.configuration.ic.title') !></div>
+                <div class="card-desc"><!= i18n.t('screens.help.configuration.ic.description') !></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><!= i18n.t('screens.help.configuration.hotkeys.title') !></div>
+                <div class="card-desc"><!= i18n.t('screens.help.configuration.hotkeys.description') !></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><!= i18n.t('screens.help.configuration.gui.title') !></div>
+                <div class="card-desc"><!= i18n.t('screens.help.configuration.gui.description') !></div>
+            </div>
+
+            <div class="note">
+                <div class="note-icon"></div>
+                <div class="note-text"><!= i18n.t('screens.help.configuration.note') !></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>IC — Intelligent Clipboard</span>
+            <span>v1.0</span>
+        </div>
+
+    </div>
+
+    <script>
+        function renderHotkeyCombination(hotkey) {
+            const keys = hotkey.split('+');
+            const totalKeys = keys.length;
+
+            let fragment = document.createDocumentFragment();
+
+            keys.forEach((key, index) => {
+                const kbd = document.createElement('kbd');
+                kbd.textContent = key.toUpperCase();
+                fragment.appendChild(kbd);
+
+                if (index !== totalKeys - 1) {
+                    const sep = document.createElement('span');
+                    sep.className = 'key-sep';
+                    sep.textContent = '+';
+                    fragment.appendChild(sep);
+                }
+            });
+
+            const container = document.getElementById('hotkey');
+            container.innerHTML = String();
+            container.appendChild(fragment);
+        }
+    </script>
+
+    <script>
+        renderHotkeyCombination('<!= next(iter(HOTKEYS)) !>');
+    </script>
+</body>
+</html>

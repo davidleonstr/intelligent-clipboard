@@ -1,0 +1,8 @@
+{
+    "alerts": {
+        "whiteMode": {
+            "title": "Error de tema",
+            "message": "Por favor, usa el modo oscuro de tu sistema"
+        }
+    }
+}

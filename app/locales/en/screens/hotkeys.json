@@ -1,0 +1,29 @@
+{
+    "labels": {
+        "title": "MANAGE HOTKEYS",
+        "hotkeyCombo": "Hotkey:",
+        "hotkeyComboName": "Name:",
+        "promptContent": "Prompt:",
+        "noHotkeys": "No hotkeys configured"
+    },
+    "buttons": {
+        "add": "ADD HOTKEY",
+        "save": "SAVE",
+        "cancel": "CANCEL",
+        "edit": "EDIT",
+        "delete": "DELETE",
+        "goBack": "GO BACK"
+    },
+    "inputs": {
+        "hotkeyCombo": "Ej: ctrl+i",
+        "hotkeyComboName": "Ej: translate",
+        "promptContent": "Enter the prompt text for this hotkey."
+    },
+    "notifications": {
+        "hotkeyAdded": "Hotkey added",
+        "hotkeyUpdated": "Hotkey updated",
+        "hotkeyDeleted": "Hotkey deleted",
+        "invalidHotkey": "Invalid or duplicate hotkey",
+        "emptyPrompt": "Prompt cannot be empty"
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "buttons": {
+        "goBack": "VOLVER"
+    },
+    "header": {
+        "title": "Guía del usuario"
+    },
+    "sections": {
+        "gettingStarted": "Primeros pasos",
+        "hotkey": "Atajos de teclado",
+        "homeReference": "Referencia de la pantalla de inicio",
+        "configuration": "Archivos de configuración",
+        "howItWorks": "Cómo funciona"
+    },
+    "steps": {
+        "stepOne": {
+            "title": "Ingresa tu clave de API",
+            "description": "En el primer inicio, aparecerá la pantalla de configuración. Pega tu clave de API de IA en el campo de entrada y presiona Confirmar. La clave será validada y almacenada localmente de forma cifrada."
+        },
+        "stepTwo": {
+            "title": "Selecciona un modelo",
+            "description": "Una vez en la pantalla de inicio, IC cargará todos los modelos de IA disponibles para tu clave. Usa el menú desplegable para seleccionar el modelo que deseas usar para el procesamiento."
+        },
+        "stepThree": {
+            "title": "Activa el detector",
+            "description": "Activa el interruptor del detector para habilitar la detección de atajos de teclado. La aplicación monitoreará tu teclado en segundo plano mientras esté en ejecución."
+        },
+        "stepFour": {
+            "title": "Copia texto y activa un atajo",
+            "description": "Selecciona cualquier texto en cualquier aplicación y cópialo al portapapeles. Luego presiona cualquiera de tus atajos configurados. IC procesará el contenido mediante IA, usando el prompt propio de ese atajo, y escribirá el resultado de nuevo en el portapapeles."
+        },
+        "stepFive": {
+            "title": "Pega el resultado",
+            "description": "Una vez completado el procesamiento, simplemente pega como lo harías normalmente. El portapapeles ahora contiene la versión procesada por IA de tu texto original."
+        }
+    },
+    "hotkey": {
+        "description": "IC se puede configurar con varias combinaciones de atajos de teclado, cada una vinculada a su propio archivo de prompt personalizado. Presionar cualquiera de ellas mientras el detector está activado activa el procesamiento del portapapeles con el prompt de ese atajo. El atajo predeterminado es el que se muestra junto a este texto.",
+        "note": "Si un atajo no responde, asegúrate de que el interruptor del detector esté activado en la pantalla de inicio y de que IC se esté ejecutando en primer o segundo plano. Activar cualquier atajo mientras una solicitud anterior aún se está procesando no tendrá ningún efecto."
+    },
+    "home": {
+        "modelSelector": {
+            "title": "Selector de modelo",
+            "description": "Lista todos los modelos de IA disponibles bajo tu clave de API que admiten generación de contenido. El modelo seleccionado se usa en cada solicitud hasta que lo cambies."
+        },
+        "listenerToggle": {
+            "title": "Interruptor del detector",
+            "description": "Activa o desactiva la detección de atajos de teclado. Cuando está desactivado, presionar cualquier atajo no tendrá ningún efecto aunque IC esté en ejecución."
+        },
+        "deleteKey": {
+            "title": "Eliminar clave",
+            "description": "Elimina la clave de API almacenada y devuelve la aplicación a la pantalla de configuración. Deberás ingresar una clave válida nuevamente antes de usar IC."
+        },
+        "settings": {
+            "title": "Abrir configuración",
+            "description": "Abre la configuración completa de la aplicación. Puedes añadir más atajos de teclado directamente ahí. Recuerda reiniciar la aplicación después de cada cambio. Nota: Si cambias la clave de cifrado, restablece tu clave de API en la pantalla de inicio."
+        }
+    },
+    "howItWorks": {
+        "description": "Cuando se presiona un atajo, IC lee el contenido actual de tu portapapeles y lo envía al modelo de IA seleccionado junto con el prompt preconfigurado de ese atajo. La respuesta del modelo se escribe de nuevo en el portapapeles, reemplazando el contenido original. Toda la operación se ejecuta en segundo plano sin interrumpir tu ventana activa.",
+        "note": "El tiempo de procesamiento depende del modelo seleccionado y de la longitud del contenido del portapapeles. Evita activar un atajo varias veces seguidas: las solicitudes concurrentes se bloquean automáticamente, pero los intentos repetidos no acelerarán el resultado."
+    },
+    "configuration": {
+        "ic": {
+            "title": "IC",
+            "description": "Almacena tu clave de API cifrada, el endpoint de la API de IA al que se conecta IC, y el patrón usado para validar una clave antes de que sea aceptada."
+        },
+        "hotkeys": {
+            "title": "HOTKEYS",
+            "description": "Asigna cada combinación de atajo a un archivo de prompt bajo app/settings/prompts/. Agrega una entrada aquí para registrar un nuevo atajo."
+        },
+        "gui": {
+            "title": "GUI",
+            "description": "Establece el idioma activo de la interfaz, coincidiendo con una carpeta bajo app/locales/."
+        },
+        "note": "Los cambios en estos archivos se aplican la próxima vez que IC se inicie. La clave de API en sí nunca se almacena en texto plano; consulta la sección de Seguridad del README."
+    }
+}

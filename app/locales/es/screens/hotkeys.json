@@ -1,0 +1,29 @@
+{
+    "labels": {
+        "title": "GESTIONAR ATAJOS",
+        "hotkeyCombo": "Atajo:",
+        "hotkeyComboName": "Nombre:",
+        "promptContent": "Prompt:",
+        "noHotkeys": "No hay atajos configurados"
+    },
+    "buttons": {
+        "add": "AÑADIR ATAJO",
+        "save": "GUARDAR",
+        "cancel": "CANCELAR",
+        "edit": "EDITAR",
+        "delete": "ELIMINAR",
+        "goBack": "VOLVER"
+    },
+    "inputs": {
+        "hotkeyCombo": "Ej: ctrl+i",
+        "hotkeyComboName": "Ej: traducir",
+        "promptContent": "Ingresa el texto del prompt para este atajo."
+    },
+    "notifications": {
+        "hotkeyAdded": "Atajo añadido",
+        "hotkeyUpdated": "Atajo actualizado",
+        "hotkeyDeleted": "Atajo eliminado",
+        "invalidHotkey": "Atajo inválido o duplicado",
+        "emptyPrompt": "El prompt no puede estar vacío"
+    }
+}

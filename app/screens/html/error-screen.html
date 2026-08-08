@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: #1e1e1e;
+            color: white;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        #error {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .error-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 5px solid #ef4444;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .error-icon::before,
+        .error-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 35px;
+            height: 5px;
+            background: #ef4444;
+            transform-origin: center;
+        }
+
+        .error-icon::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .error-icon::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .error-text {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div id="error">
+        <div class="error-icon"></div>
+        <h1><!= i18n.t('screens.error.title') !></h1>
+        <div class="error-text"><!= i18n.t('screens.error.information') !></div>
+    </div>
+</body>
+</html>

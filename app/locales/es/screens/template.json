@@ -1,0 +1,12 @@
+{
+    "menu": {
+        "actions": {
+            "open": "Abrir",
+            "close": "Cerrar"
+        },
+        "messages": {
+            "title": "Minimizado",
+            "information": "¡La aplicación sigue ejecutándose en la bandeja del sistema!"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "labels": {
+        "title": "WELCOME, USER\nYOU NEED TO SET YOUR API KEY",
+        "appName": "INTELLIGENT CLIPBOARD"
+    },
+    "buttons": {
+        "confirmKey": "CONFIRM API KEY"
+    },
+    "inputs": {
+        "inputKey": "Ej: sk-9fA2bC7dE8F3gH1JkL0mN"
+    },
+    "notifications": {
+        "invalidKey": "Failed verification",
+        "validKey": "Successful verification",
+        "redirecting": "Redirecting to home",
+        "keySaved": "API key saved"
+    }  
+}

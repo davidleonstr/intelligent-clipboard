@@ -1,0 +1,18 @@
+{
+    "labels": {
+        "title": "BIENVENIDO, USUARIO\nDEBES CONFIGURAR TU CLAVE DE API",
+        "appName": "PORTAPAPELES INTELIGENTE"
+    },
+    "buttons": {
+        "confirmKey": "CONFIRMAR CLAVE DE API"
+    },
+    "inputs": {
+        "inputKey": "Ej: sk-9fA2bC7dE8F3gH1JkL0mN"
+    },
+    "notifications": {
+        "invalidKey": "Verificación fallida",
+        "validKey": "Verificación exitosa",
+        "redirecting": "Redirigiendo al inicio",
+        "keySaved": "Clave de API guardada"
+    }  
+}

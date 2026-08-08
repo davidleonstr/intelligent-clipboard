@@ -1,0 +1,24 @@
+{
+    "labels": {
+        "title": "AJUSTES",
+        "selectLanguage": "Idioma:",
+        "advancedSettings": "Avanzado",
+        "openaiWrapper": "Endpoint de la API de IA:",
+        "keyPattern": "Patrón de la clave API:",
+        "seedCipher": "Semilla de cifrado:"
+    },
+    "buttons": {
+        "save": "GUARDAR",
+        "manageHotkeys": "GESTIONAR ATAJOS",
+        "goBack": "VOLVER",
+        "openAdvancedSettings": "ABRIR"
+    },
+    "inputs": {
+        "openaiWrapper": "Ej: https://api.openai.com/v1/",
+        "keyPattern": "Ej: ^[A-Za-z0-9-]+$",
+        "seedCipher": "Ej: semilla-secreta"
+    },
+    "notifications": {
+        "languageSaved": "Ajustes guardados"
+    }
+}

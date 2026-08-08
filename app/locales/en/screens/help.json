@@ -1,0 +1,78 @@
+{
+    "buttons": {
+        "goBack": "GO BACK"
+    },
+    "header": {
+        "title": "User guide"
+    },
+    "sections": {
+        "gettingStarted": "Getting started",
+        "hotkey": "Hotkeys",
+        "homeReference": "Home screen reference",
+        "configuration": "Configuration files",
+        "howItWorks": "How it works"
+    },
+    "steps": {
+        "stepOne": {
+            "title": "Enter your API key",
+            "description": "On first launch, the setup screen will appear. Paste your AI API key into the input field and press Confirm. The key will be validated and stored locally in encrypted form."
+        },
+        "stepTwo": {
+            "title": "Select a model",
+            "description": "Once on the home screen, IC will load all AI models available for your key. Use the dropdown to select the model you want to use for processing."
+        },
+        "stepThree": {
+            "title": "Enable the listener",
+            "description": "Toggle the listener switch to activate hotkey detection. The application will now monitor your keyboard in the background while it is running."
+        },
+        "stepFour": {
+            "title": "Copy text and trigger a hotkey",
+            "description": "Select any text in any application and copy it to your clipboard. Then press any of your configured hotkeys. IC will process the content through AI, using that hotkey's own prompt, and write the result back to your clipboard."
+        },
+        "stepFive": {
+            "title": "Paste the result",
+            "description": "Once processing is complete, simply paste as you normally would. The clipboard now contains the AI-processed version of your original text."
+        }
+    },
+    "hotkey": {
+        "description": "IC can be configured with several hotkey combinations, each one linked to its own custom prompt file. Pressing any of them while the listener is enabled triggers clipboard processing with that hotkey's prompt. The default hotkey is the one shown next to this text.",
+        "note": "If a hotkey does not respond, make sure the listener toggle is enabled on the home screen and that IC is running in the foreground or background. Triggering any hotkey while a previous request is still processing will have no effect."
+    },
+    "home": {
+        "modelSelector": {
+            "title": "Model selector",
+            "description": "Lists all AI models available under your API key that support content generation. The selected model is used for every request until you change it."
+        },
+        "listenerToggle": {
+            "title": "Listener toggle",
+            "description": "Enables or disables hotkey detection. When off, pressing any hotkey will have no effect even if IC is running."
+        },
+        "deleteKey": {
+            "title": "Delete key",
+            "description": "Removes the stored API key and returns the application to the setup screen. You will need to enter a valid key again before using IC."
+        },
+        "settings": {
+            "title": "Open settings",
+            "description": "Open the full application settings. You can add more keyboard shortcuts right there. Remember to restart the application after each change. Note: If you change the encryption key, reset your API key in the setup."
+        }
+    },
+    "howItWorks": {
+        "description": "When a hotkey is pressed, IC reads the current contents of your clipboard and sends them to the selected AI model along with that hotkey's preconfigured prompt. The model's response is written back to the clipboard, replacing the original content. The entire operation runs in the background without interrupting your active window.",
+        "note": "Processing time depends on the selected model and the length of the clipboard content. Avoid triggering a hotkey multiple times in quick succession — concurrent requests are blocked automatically, but repeated attempts will not speed up the result."
+    },
+    "configuration": {
+        "ic": {
+            "title": "IC",
+            "description": "Stores your encrypted API key, the AI API endpoint IC connects to, and the pattern used to validate a key before it's accepted."
+        },
+        "hotkeys": {
+            "title": "HOTKEYS",
+            "description": "Maps each hotkey combination to a prompt file under app/settings/prompts/. Add an entry here to register a new hotkey."
+        },
+        "gui": {
+            "title": "GUI",
+            "description": "Sets the active interface language, matching a folder under app/locales/."
+        },
+        "note": "Changes to these files are picked up the next time IC starts. The API key itself is never stored in plain text — see the Security section of the README."
+    }
+}

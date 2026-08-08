@@ -1,0 +1,22 @@
+{
+    "notifications": {
+        "welcome": "Welcome to home",
+        "keyDeleted": "API key deleted",
+        "keyCopied": "API key copied",
+        "noModels": "No models available"
+    },
+    "buttons": {
+        "deleteKey": "DELETE API KEY",
+        "copyKey": "COPY API KEY",
+        "help": "HELP",
+        "settings": "SETTINGS"
+    },
+    "labels": {
+        "title": "HOME",
+        "selectModel": "AI model:",
+        "enableService": "Service status:"
+    },
+    "combos": {
+        "selectModel": "No models available"
+    }
+}
